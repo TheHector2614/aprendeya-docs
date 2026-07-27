@@ -8,6 +8,10 @@ export interface DocPage {
   title: string
   description: string
   icon: string
+  iconName: string
+  category: string
+  badge: string
+  readTime: string
   sections: DocSection[]
 }
 
@@ -17,6 +21,10 @@ export const docs: DocPage[] = [
     title: "Reglamento del Estudiante",
     description: "Conoce las normas, derechos y deberes que rigen la relación académica en AprendeYa.",
     icon: "📜",
+    iconName: "ScrollText",
+    category: "Normativa Académica",
+    badge: "Oficial",
+    readTime: "7 min de lectura",
     sections: [
       {
         title: "Disposiciones Generales",
@@ -80,134 +88,14 @@ Las sanciones pueden incluir: amonestación por escrito, suspensión temporal de
     ],
   },
   {
-    id: "politica-reembolso",
-    title: "Política de Reembolso de Matrículas",
-    description: "Consulta las condiciones, plazos y procedimiento para solicitar la devolución de tu inversión educativa.",
-    icon: "💳",
-    sections: [
-      {
-        title: "Condiciones Generales",
-        content: `En AprendeYa queremos que estés completamente satisfecho con tu experiencia de aprendizaje. Por ello, ofrecemos reembolsos bajo las condiciones descritas en esta política.
-
-Esta política aplica exclusivamente a cursos y programas pagados adquiridos directamente a través de la plataforma AprendeYa. No aplica para compras realizadas a través de terceros o programas gratuitos.`,
-      },
-      {
-        title: "Plazos de Reembolso",
-        content: `El plazo para solicitar reembolso varía según el tipo de programa:
-
-Cursos individuales: Puedes solicitar reembolso dentro de los primeros 7 días calendario desde la fecha de compra, siempre que no hayas avanzado más del 20% del contenido del curso.
-
-Programas completos (bootcamps, diplomados): El plazo de reembolso es de 14 días calendario desde la fecha de inscripción, con un máximo de 15% de avance en el contenido total del programa.
-
-Planes de suscripción: Puedes cancelar tu suscripción en cualquier momento. El reembolso se calcula de forma proporcional a los días restantes del período de facturación actual.
-
-Paquetes de cursos: Aplica la misma política de los cursos individuales, calculada desde la fecha de compra del paquete.`,
-      },
-      {
-        title: "Exclusiones",
-        content: `No procederán reembolsos en los siguientes casos:
-- Cursos completados en más del 30%
-- Cursos adquiridos hace más de 30 días
-- Certificados o exámenes de certificación
-- Cursos comprados durante promociones especiales con descuento superior al 50%
-- Programas que incluyan mentorías en vivo una vez iniciadas
-- Cursos regalados o transferidos a otro usuario
-- Cuando se haya emitido el certificado del curso`,
-      },
-      {
-        title: "Procedimiento de Solicitud",
-        content: `Para solicitar un reembolso, sigue estos pasos:
-
-1. Inicia sesión en tu cuenta de AprendeYa
-2. Ve a "Historial de Compras" en la configuración de tu perfil
-3. Selecciona el curso o programa para el cual deseas solicitar reembolso
-4. Haz clic en "Solicitar Reembolso" y completa el formulario indicando el motivo
-5. Recibirás un correo de confirmación con el número de solicitud
-
-El equipo de soporte revisará tu solicitud en un plazo máximo de 5 días hábiles y te notificará la decisión por correo electrónico.`,
-      },
-      {
-        title: "Plazos de Devolución",
-        content: `Una vez aprobada la solicitud de reembolso, los plazos de devolución son:
-
-- Tarjeta de crédito/débito: 5 a 10 días hábiles (dependiendo del banco emisor)
-- PayPal: 2 a 5 días hábiles
-- Transferencia bancaria: 3 a 7 días hábiles
-- Crédito en la plataforma: 24 horas hábiles
-
-El reembolso se realiza por el mismo medio de pago utilizado en la compra original. En caso de que el medio de pago original ya no esté disponible, el reembolso se realizará como crédito en la plataforma.`,
-      },
-    ],
-  },
-  {
-    id: "faq",
-    title: "Preguntas Frecuentes",
-    description: "Respuestas a las dudas más comunes sobre cursos, certificados, pagos y soporte técnico.",
-    icon: "❓",
-    sections: [
-      {
-        title: "Cursos y Contenido",
-        content: `¿Cómo elijo el curso adecuado para mí?
-Revisa la descripción de cada curso, los requisitos previos y el temario. También puedes contactar a nuestro equipo de asesoría académica para recibir recomendaciones personalizadas.
-
-¿Los cursos tienen horarios fijos?
-No. Todos nuestros cursos son asincrónicos, lo que significa que puedes estudiar a tu propio ritmo, las 24 horas del día, los 7 días de la semana. Algunos programas incluyen sesiones en vivo opcionales.
-
-¿Cuánto tiempo tengo para completar un curso?
-Depende del curso. Generalmente, los cursos individuales tienen acceso por 6 meses, los programas completos por 12 meses, y las suscripciones mantienen acceso mientras estén activas.
-
-¿Puedo acceder al contenido después de completar el curso?
-Sí,mantienes acceso al material del curso por 3 meses adicionales después de completarlo. En programas completos, el acceso se extiende a 6 meses.`,
-      },
-      {
-        title: "Certificados",
-        content: `¿Cómo obtengo mi certificado?
-Al completar satisfactoriamente todas las evaluaciones y proyectos del curso, encontrarás la opción de descargar tu certificado desde la sección "Mis Logros" en tu perfil.
-
-¿Los certificados tienen validez?
-Sí, nuestros certificados incluyen un código de verificación único que permite a empleadores e instituciones educativas validar su autenticidad a través de nuestra plataforma.
-
-¿Puedo compartir mi certificado en LinkedIn?
-Sí. Desde la sección de certificados puedes generar un enlace público para compartir en LinkedIn, tu portafolio o currículum.
-
-¿Puedo recuperar un certificado perdido?
-Sí. Los certificados están disponibles permanentemente en tu perfil de AprendeYa. Puedes descargarlos nuevamente en cualquier momento desde "Mis Logros".`,
-      },
-      {
-        title: "Pagos y Facturación",
-        content: `¿Qué métodos de pago aceptan?
-Aceptamos tarjetas de crédito y débito (Visa, Mastercard, American Express), PayPal, y transferencias bancarias en algunos países de Latinoamérica.
-
-¿Puedo pagar en cuotas?
-Sí, ofrecemos opciones de pago fraccionado en cursos seleccionados. Las opciones de cuotas se muestran durante el proceso de pago.
-
-¿Emite factura o recibo?
-Sí, generamos factura electrónica con validez fiscal para todos los pagos realizados. Puedes descargarla desde la sección "Historial de Compras".
-
-¿El precio incluye impuestos?
-Los precios mostrados incluyen los impuestos aplicables según la legislación del país del estudiante.`,
-      },
-      {
-        title: "Soporte Técnico",
-        content: `¿Qué hago si no puedo acceder a mi curso?
-Primero, verifica tu conexión a internet. Si el problema persiste, cierra sesión y vuelve a iniciarla. Si aún así no funciona, contacta a nuestro soporte técnico.
-
-¿Cómo contacto al soporte?
-Puedes escribirnos a soporte@aprendeya.com o usar el chat en vivo disponible en la plataforma de lunes a viernes de 8:00 a 20:00 horas (GMT-5).
-
-¿En qué horario responden?
-Respondemos correos electrónicos en un máximo de 24 horas hábiles. El chat en vivo tiene atención en tiempo real durante el horario indicado.
-
-¿Ofrecen soporte en varios idiomas?
-Sí, ofrecemos soporte en español, inglés y portugués.`,
-      },
-    ],
-  },
-  {
     id: "guia-uso",
     title: "Guía de Uso de la Plataforma",
     description: "Aprende a navegar por AprendeYa: desde tu primer registro hasta el seguimiento de tu progreso académico.",
     icon: "📖",
+    iconName: "BookOpen",
+    category: "Tutoriales y Guías",
+    badge: "Esencial",
+    readTime: "6 min de lectura",
     sections: [
       {
         title: "Primeros Pasos",
@@ -274,6 +162,10 @@ Evaluación entre pares: Algunos cursos incluyen actividades donde puedes revisa
     title: "Programa de Becas y Afiliados",
     description: "Descubre las oportunidades de becas disponibles y cómo puedes ganar dinero recomendando AprendeYa.",
     icon: "🎓",
+    iconName: "GraduationCap",
+    category: "Oportunidades",
+    badge: "Convocatoria Abierta",
+    readTime: "8 min de lectura",
     sections: [
       {
         title: "Tipos de Beca",
@@ -364,6 +256,138 @@ No. Las becas no son acumulables con otros descuentos o promociones.
 El proceso completo tiene una duración aproximada de 20 a 25 días hábiles desde el cierre de la convocatoria.
 
 Si tienes más dudas, escríbenos a becas@aprendeya.com.`,
+      },
+    ],
+  },
+  {
+    id: "politica-reembolso",
+    title: "Política de Reembolso de Matrículas",
+    description: "Consulta las condiciones, plazos y procedimiento para solicitar la devolución de tu inversión educativa.",
+    icon: "💳",
+    iconName: "CreditCard",
+    category: "Facturación y Garantía",
+    badge: "Financiero",
+    readTime: "5 min de lectura",
+    sections: [
+      {
+        title: "Condiciones Generales",
+        content: `En AprendeYa queremos que estés completamente satisfecho con tu experiencia de aprendizaje. Por ello, ofrecemos reembolsos bajo las condiciones descritas en esta política.
+
+Esta política aplica exclusivamente a cursos y programas pagados adquiridos directamente a través de la plataforma AprendeYa. No aplica para compras realizadas a través de terceros o programas gratuitos.`,
+      },
+      {
+        title: "Plazos de Reembolso",
+        content: `El plazo para solicitar reembolso varía según el tipo de programa:
+
+Cursos individuales: Puedes solicitar reembolso dentro de los primeros 7 días calendario desde la fecha de compra, siempre que no hayas avanzado más del 20% del contenido del curso.
+
+Programas completos (bootcamps, diplomados): El plazo de reembolso es de 14 días calendario desde la fecha de inscripción, con un máximo de 15% de avance en el contenido total del programa.
+
+Planes de suscripción: Puedes cancelar tu suscripción en cualquier momento. El reembolso se calcula de forma proporcional a los días restantes del período de facturación actual.
+
+Paquetes de cursos: Aplica la misma política de los cursos individuales, calculada desde la fecha de compra del paquete.`,
+      },
+      {
+        title: "Exclusiones",
+        content: `No procederán reembolsos en los siguientes casos:
+- Cursos completados en más del 30%
+- Cursos adquiridos hace más de 30 días
+- Certificados o exámenes de certificación
+- Cursos comprados durante promociones especiales con descuento superior al 50%
+- Programas que incluyan mentorías en vivo una vez iniciadas
+- Cursos regalados o transferidos a otro usuario
+- Cuando se haya emitido el certificado del curso`,
+      },
+      {
+        title: "Procedimiento de Solicitud",
+        content: `Para solicitar un reembolso, sigue estos pasos:
+
+1. Inicia sesión en tu cuenta de AprendeYa
+2. Ve a "Historial de Compras" en la configuración de tu perfil
+3. Selecciona el curso o programa para el cual deseas solicitar reembolso
+4. Haz clic en "Solicitar Reembolso" y completa el formulario indicando el motivo
+5. Recibirás un correo de confirmación con el número de solicitud
+
+El equipo de soporte revisará tu solicitud en un plazo máximo de 5 días hábiles y te notificará la decisión por correo electrónico.`,
+      },
+      {
+        title: "Plazos de Devolución",
+        content: `Una vez aprobada la solicitud de reembolso, los plazos de devolución son:
+
+- Tarjeta de crédito/débito: 5 a 10 días hábiles (dependiendo del banco emisor)
+- PayPal: 2 a 5 días hábiles
+- Transferencia bancaria: 3 a 7 días hábiles
+- Crédito en la plataforma: 24 horas hábiles
+
+El reembolso se realiza por el mismo medio de pago utilizado en la compra original. En caso de que el medio de pago original ya no esté disponible, el reembolso se realizará como crédito en la plataforma.`,
+      },
+    ],
+  },
+  {
+    id: "faq",
+    title: "Preguntas Frecuentes",
+    description: "Respuestas a las dudas más comunes sobre cursos, certificados, pagos y soporte técnico.",
+    icon: "❓",
+    iconName: "HelpCircle",
+    category: "Soporte General",
+    badge: "Soporte 24/7",
+    readTime: "5 min de lectura",
+    sections: [
+      {
+        title: "Cursos y Contenido",
+        content: `¿Cómo elijo el curso adecuado para mí?
+Revisa la descripción de cada curso, los requisitos previos y el temario. También puedes contactar a nuestro equipo de asesoría académica para recibir recomendaciones personalizadas.
+
+¿Los cursos tienen horarios fijos?
+No. Todos nuestros cursos son asincrónicos, lo que significa que puedes estudiar a tu propio ritmo, las 24 horas del día, los 7 días de la semana. Algunos programas incluyen sesiones en vivo opcionales.
+
+¿Cuánto tiempo tengo para completar un curso?
+Depende del curso. Generalmente, los cursos individuales tienen acceso por 6 meses, los programas completos por 12 meses, y las suscripciones mantienen acceso mientras estén activas.
+
+¿Puedo acceder al contenido después de completar el curso?
+Sí, mantienes acceso al material del curso por 3 meses adicionales después de completarlo. En programas completos, el acceso se extiende a 6 meses.`,
+      },
+      {
+        title: "Certificados",
+        content: `¿Cómo obtengo mi certificado?
+Al completar satisfactoriamente todas las evaluaciones y proyectos del curso, encontrarás la opción de descargar tu certificado desde la sección "Mis Logros" en tu perfil.
+
+¿Los certificados tienen validez?
+Sí, nuestros certificados incluyen un código de verificación único que permite a empleadores e instituciones educativas validar su autenticidad a través de nuestra plataforma.
+
+¿Puedo compartir mi certificado en LinkedIn?
+Sí. Desde la sección de certificados puedes generar un enlace público para compartir en LinkedIn, tu portafolio o currículum.
+
+¿Puedo recuperar un certificado perdido?
+Sí. Los certificados están disponibles permanentemente en tu perfil de AprendeYa. Puedes descargarlos nuevamente en cualquier momento desde "Mis Logros".`,
+      },
+      {
+        title: "Pagos y Facturación",
+        content: `¿Qué métodos de pago aceptan?
+Aceptamos tarjetas de crédito y débito (Visa, Mastercard, American Express), PayPal, y transferencias bancarias en algunos países de Latinoamérica.
+
+¿Puedo pagar en cuotas?
+Sí, ofrecemos opciones de pago fraccionado en cursos seleccionados. Las opciones de cuotas se muestran durante el proceso de pago.
+
+¿Emite factura o recibo?
+Sí, generamos factura electrónica con validez fiscal para todos los pagos realizados. Puedes descargarla desde la sección "Historial de Compras".
+
+¿El precio incluye impuestos?
+Los precios mostrados incluyen los impuestos aplicables según la legislación del país del estudiante.`,
+      },
+      {
+        title: "Soporte Técnico",
+        content: `¿Qué hago si no puedo acceder a mi curso?
+Primero, verifica tu conexión a internet. Si el problema persiste, cierra sesión y vuelve a iniciarla. Si aún así no funciona, contacta a nuestro soporte técnico.
+
+¿Cómo contacto al soporte?
+Puedes escribirnos a soporte@aprendeya.com o usar el chat en vivo disponible en la plataforma de lunes a viernes de 8:00 a 20:00 horas (GMT-5).
+
+¿En qué horario responden?
+Respondemos correos electrónicos en un máximo de 24 horas hábiles. El chat en vivo tiene atención en tiempo real durante el horario indicado.
+
+¿Ofrecen soporte en varios idiomas?
+Sí, ofrecemos soporte en español, inglés y portugués.`,
       },
     ],
   },

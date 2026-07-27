@@ -1,0 +1,130 @@
+---
+export interface Props {
+  content: string
+}
+
+const { content } = Astro.props
+
+// Helper to format inline bold **text**
+function formatInlineText(text: string) {
+  return text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
+}
+
+// Split content by double newlines into logical blocks
+const rawBlocks = content.split(/\n\n+/).map((b) => b.trim()).filter(Boolean)
+
+const blocks = rawBlocks.map((block) => {
+  const lines = block.split(/\n/).map((l) => l.trim()).filter(Boolean)
+  
+  // Check if block is composed of bullet points
+  const hasBullets = lines.some((l) => /^[-*•·]\s*/.test(l))
+  if (hasBullets) {
+    const textLines: string[] = []
+    const bulletItems: string[] = []
+    
+    lines.forEach((l) => {
+      if (/^[-*•·]\s*/.test(l)) {
+        bulletItems.push(l.replace(/^[-*•·]\s*/, "").trim())
+      } else {
+        textLines.push(l)
+      }
+    })
+
+    return {
+      type: "bullets",
+      intro: textLines.join(" "),
+      items: bulletItems,
+    }
+  }
+
+  // Check if block is composed of numbered list
+  const hasNumbers = lines.some((l) => /^\d+\./.test(l))
+  if (hasNumbers) {
+    const textLines: string[] = []
+    const numberItems: string[] = []
+
+    lines.forEach((l) => {
+      if (/^\d+\./.test(l)) {
+        numberItems.push(l.replace(/^\d+\.\s*/, "").trim())
+      } else {
+        textLines.push(l)
+      }
+    })
+
+    return {
+      type: "numbers",
+      intro: textLines.join(" "),
+      items: numberItems,
+    }
+  }
+
+  // Check if block is a callout note (e.g. Nota:, Importante:, Requisitos:)
+  if (block.startsWith("Nota:") || block.startsWith("Importante:") || block.startsWith("Atención:")) {
+    return {
+      type: "callout",
+      text: block,
+    }
+  }
+
+  // Default paragraph
+  return {
+    type: "paragraph",
+    text: lines.join(" "),
+  }
+})
+---
+
+<div class="space-y-5 text-slate-700 leading-relaxed text-sm sm:text-base break-words">
+  {blocks.map((block) => {
+    if (block.type === "bullets") {
+      return (
+        <div class="space-y-3 my-4">
+          {block.intro && (
+            <p class="font-semibold text-slate-900" set:html={formatInlineText(block.intro)} />
+          )}
+          <ul class="list-none space-y-2.5 my-3 pl-0">
+            {block.items.map((item) => (
+              <li class="flex items-start gap-3 text-slate-600 text-sm sm:text-[15px] leading-relaxed">
+                <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-2 shadow-2xs"></span>
+                <span set:html={formatInlineText(item)} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    if (block.type === "numbers") {
+      return (
+        <div class="space-y-3 my-4">
+          {block.intro && (
+            <p class="font-semibold text-slate-900" set:html={formatInlineText(block.intro)} />
+          )}
+          <ol class="list-none space-y-3 my-3 pl-0">
+            {block.items.map((item, idx) => (
+              <li class="flex items-start gap-3 text-slate-600 text-sm sm:text-[15px] leading-relaxed">
+                <span class="w-6 h-6 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                  {idx + 1}
+                </span>
+                <span class="pt-0.5" set:html={formatInlineText(item)} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      )
+    }
+
+    if (block.type === "callout") {
+      return (
+        <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-amber-900 text-xs sm:text-sm my-4 flex items-start gap-3">
+          <span class="text-xl shrink-0">💡</span>
+          <div set:html={formatInlineText(block.text)} />
+        </div>
+      )
+    }
+
+    return (
+      <p set:html={formatInlineText(block.text)} class="leading-relaxed text-slate-600 text-sm sm:text-[15px]" />
+    )
+  })}
+</div>

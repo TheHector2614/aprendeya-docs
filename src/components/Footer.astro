@@ -1,13 +1,65 @@
-<footer class="bg-gray-50 border-t border-gray-200 mt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="text-lg font-bold text-primary">AprendeYa</span>
-        <span class="text-sm text-gray-400">Plataforma educativa</span>
+---
+import { docs } from "../content/docs"
+---
+
+<footer class="bg-white border-t border-slate-200/80 mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      
+      <!-- Brand & Bio -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+            AY
+          </div>
+          <span class="text-lg font-extrabold text-slate-900">AprendeYa Docs</span>
+        </div>
+        <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
+          Plataforma educativa líder comprometida con la formación accesible, transparente e innovadora en América Latina.
+        </p>
+        <!-- Status indicator -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-medium">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          Sistemas 100% operativos
+        </div>
       </div>
-      <p class="text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} AprendeYa. Todos los derechos reservados.
-      </p>
+
+      <!-- Quick Document Links -->
+      <div>
+        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Documentos Oficiales</h4>
+        <ul class="space-y-2 text-xs text-slate-500">
+          {docs.map((doc) => (
+            <li>
+              <a href={`/${doc.id}`} class="hover:text-blue-600 transition-colors">
+                {doc.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Support & Contact -->
+      <div>
+        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Soporte y Contacto</h4>
+        <ul class="space-y-2 text-xs text-slate-500">
+          <li><a href="mailto:soporte@aprendeya.edu" class="hover:text-blue-600 transition-colors">soporte@aprendeya.edu</a></li>
+          <li><a href="mailto:becas@aprendeya.edu" class="hover:text-blue-600 transition-colors">becas@aprendeya.edu</a></li>
+          <li><span class="text-slate-400">Atención: Lunes a Viernes 8am - 8pm</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+      <p>© {new Date().getFullYear()} AprendeYa Inc. Todos los derechos reservados.</p>
+      <div class="flex items-center gap-4">
+        <a href="/reglamento-estudiante" class="hover:text-slate-600 transition-colors">Términos y Condiciones</a>
+        <a href="/politica-reembolso" class="hover:text-slate-600 transition-colors">Política de Reembolso</a>
+      </div>
     </div>
   </div>
 </footer>

@@ -1,0 +1,45 @@
+---
+import { docs } from "../content/docs"
+
+export interface Props {
+  currentId: string
+}
+
+const { currentId } = Astro.props
+
+const currentIndex = docs.findIndex((d) => d.id === currentId)
+const prevDoc = currentIndex > 0 ? docs[currentIndex - 1] : null
+const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : null
+---
+
+<div class="mt-8 pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+  {prevDoc ? (
+    <a
+      href={`/${prevDoc.id}`}
+      class="group w-full sm:w-auto flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:border-blue-500/40 hover:bg-blue-50/50 transition-all text-left"
+    >
+      <div class="p-2 rounded-lg bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </div>
+      <div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Anterior</div>
+        <div class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{prevDoc.title}</div>
+      </div>
+    </a>
+  ) : <div />}
+
+  {nextDoc ? (
+    <a
+      href={`/${nextDoc.id}`}
+      class="group w-full sm:w-auto flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:border-blue-500/40 hover:bg-blue-50/50 transition-all text-right sm:ml-auto"
+    >
+      <div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Siguiente</div>
+        <div class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{nextDoc.title}</div>
+      </div>
+      <div class="p-2 rounded-lg bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+    </a>
+  ) : <div />}
+</div>

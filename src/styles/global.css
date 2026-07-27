@@ -1,49 +1,120 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
   --color-primary: #2563eb;
-  --color-primary-dark: #1e40af;
-  --color-accent: #059669;
-  --color-accent-light: #d1fae5;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #eff6ff;
+  --color-accent: #10b981;
+  --color-accent-light: #ecfdf5;
   --color-surface: #f8fafc;
+  --color-surface-card: #ffffff;
+  --color-surface-hover: #f1f5f9;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-sans);
 }
 
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism Header */
+.glass-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Sidebar Styles */
 .sidebar-link {
-  @apply block px-4 py-2.5 text-sm rounded-lg transition-colors duration-150;
+  @apply flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium text-slate-600 rounded-xl transition-all duration-150 border border-transparent;
 }
 
 .sidebar-link:hover {
-  @apply bg-blue-50 text-primary;
+  @apply bg-slate-100/80 text-blue-600 border-slate-200/60;
 }
 
 .sidebar-link.active {
-  @apply bg-primary text-white;
+  @apply bg-blue-600 text-white font-semibold shadow-md shadow-blue-500/20 border-blue-600;
 }
 
+/* Document Typography */
 .doc-section h2 {
-  @apply text-2xl font-bold text-gray-900 mt-10 mb-4 pb-2 border-b border-gray-200;
+  @apply text-2xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200/80 flex items-center gap-2 scroll-mt-24;
 }
 
 .doc-section h3 {
-  @apply text-xl font-semibold text-gray-800 mt-6 mb-3;
+  @apply text-xl font-semibold text-slate-800 mt-8 mb-3 scroll-mt-24;
 }
 
 .doc-section p {
-  @apply text-gray-700 leading-relaxed mb-4;
+  @apply text-slate-600 leading-relaxed mb-4 text-[15px];
 }
 
 .doc-section ul {
-  @apply list-disc pl-6 mb-4 space-y-1.5 text-gray-700;
+  @apply list-none space-y-2 mb-6 text-slate-600 text-[15px];
+}
+
+.doc-section ul li {
+  @apply relative;
 }
 
 .doc-section ol {
-  @apply list-decimal pl-6 mb-4 space-y-1.5 text-gray-700;
+  @apply list-decimal pl-6 mb-6 space-y-2 text-slate-600 text-[15px];
 }
 
 .doc-section strong {
-  @apply font-semibold text-gray-900;
+  @apply font-semibold text-slate-900;
 }
+
+.doc-section blockquote {
+  @apply border-l-4 border-blue-500 bg-blue-50/50 p-4 rounded-r-xl my-4 text-slate-700 italic text-sm;
+}
+
+.doc-section code {
+  @apply font-mono text-xs bg-slate-100 text-blue-600 px-1.5 py-0.5 rounded border border-slate-200;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+

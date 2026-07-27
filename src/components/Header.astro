@@ -1,37 +1,76 @@
 ---
-import { docs } from "../content/docs"
+import SearchModal from "./SearchModal.astro"
 ---
 
-<header class="bg-white border-b border-gray-200 sticky top-0 z-40">
+<header class="glass-header sticky top-0 z-40 transition-all duration-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <a href="/" class="flex items-center gap-2.5">
-        <span class="text-2xl font-bold text-primary">AprendeYa</span>
-        <span class="hidden sm:inline text-sm text-gray-400 border-l border-gray-300 pl-3">Documentación</span>
+    <div class="flex items-center justify-between h-16 gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-extrabold tracking-tight text-slate-900 leading-none group-hover:text-blue-600 transition-colors">
+            AprendeYa
+          </span>
+          <span class="text-[11px] font-medium text-slate-400 leading-none mt-1">Centro de Documentación</span>
+        </div>
       </a>
-      <nav class="hidden md:flex items-center gap-1">
-        {docs.map((doc) => (
+
+      <!-- Quick Search Trigger & Nav -->
+      <div class="flex items-center gap-3">
+        <!-- Search trigger button -->
+        <button
+          id="search-trigger"
+          class="flex items-center gap-3 px-3.5 py-1.5 bg-slate-100/90 hover:bg-slate-200/80 border border-slate-200/80 text-slate-500 rounded-xl text-xs font-medium transition-all group"
+          aria-label="Buscar documentación"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-hover:text-blue-600 transition-colors"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="hidden sm:inline">Buscar en la doc...</span>
+          <kbd class="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white text-slate-400 rounded border border-slate-200 shadow-2xs">
+            ⌘K
+          </kbd>
+        </button>
+
+        <!-- Clean Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1 border-l border-slate-200/80 pl-3">
           <a
-            href={`/${doc.id}`}
-            class="px-3 py-2 text-sm text-gray-600 hover:text-primary hover:bg-blue-50 rounded-lg transition-colors"
+            href="/"
+            class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-blue-50/60 rounded-lg transition-colors"
           >
-            {doc.title}
+            Inicio
           </a>
-        ))}
-      </nav>
-      <button id="menu-toggle" class="md:hidden p-2 text-gray-600 hover:text-primary" aria-label="Menú">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+          <a
+            href="mailto:soporte@aprendeya.edu"
+            class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-blue-50/60 rounded-lg transition-colors flex items-center gap-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Soporte
+          </a>
+        </nav>
+
+        <!-- Mobile menu button -->
+        <button
+          id="menu-toggle"
+          class="md:hidden p-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-xl transition-colors"
+          aria-label="Abrir menú"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+
     </div>
   </div>
+
+  <!-- Native Search Modal Component -->
+  <SearchModal />
 </header>
 
 <script>
-  document.getElementById("menu-toggle")?.addEventListener("click", () => {
-    const sidebar = document.querySelector("[data-sidebar]")
-    if (sidebar) {
-      sidebar.classList.toggle("-translate-x-full")
-      sidebar.classList.toggle("translate-x-0")
-    }
+  // Open search modal on button click
+  document.getElementById("search-trigger")?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("open-search-modal"))
   })
 </script>

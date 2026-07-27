@@ -5,27 +5,125 @@ import { docs } from "../content/docs"
 ---
 
 <BaseLayout title="Inicio">
-  <section class="text-center py-12">
-    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-light mb-6">
-      <span class="text-3xl">🎓</span>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden pt-8 pb-12 lg:pt-12 lg:pb-16 mb-12 border-b border-slate-200/60">
+    <!-- Subtle Background Glows -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-blue-500/10 via-indigo-500/10 to-emerald-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+    <div class="text-center max-w-3xl mx-auto space-y-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold tracking-wide uppercase shadow-2xs">
+        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+        Centro Oficial de Documentación
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+        Todo lo que necesitas saber sobre <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 bg-clip-text text-transparent">AprendeYa</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Explora nuestros reglamentos estudiantiles, guías de usuario paso a paso, programas de becas y políticas de reembolso en un solo lugar.
+      </p>
+
+      <!-- Hero Action Trigger -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <button
+          onclick="window.dispatchEvent(new CustomEvent('open-search-modal'))"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Buscar en la documentación
+          <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-blue-700 text-blue-100 rounded ml-1">⌘K</kbd>
+        </button>
+        <a
+          href="/guia-uso"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold text-sm rounded-2xl shadow-xs transition-all"
+        >
+          Primeros pasos
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Quick Platform Stats -->
+      <div class="pt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-xl mx-auto border-t border-slate-200/60 mt-8">
+        <div class="text-center p-3 bg-white/60 rounded-xl border border-slate-200/60">
+          <div class="text-xl font-extrabold text-slate-900">5</div>
+          <div class="text-[11px] font-medium text-slate-500">Documentos Clave</div>
+        </div>
+        <div class="text-center p-3 bg-white/60 rounded-xl border border-slate-200/60">
+          <div class="text-xl font-extrabold text-blue-600">100%</div>
+          <div class="text-[11px] font-medium text-slate-500">Transparencia</div>
+        </div>
+        <div class="text-center p-3 bg-white/60 rounded-xl border border-slate-200/60 col-span-2 sm:col-span-1">
+          <div class="text-xl font-extrabold text-emerald-600">24/7</div>
+          <div class="text-[11px] font-medium text-slate-500">Acceso Libre</div>
+        </div>
+      </div>
     </div>
-    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-      Documentación <span class="text-primary">AprendeYa</span>
-    </h1>
-    <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-      Encuentra toda la información sobre nuestras políticas, reglamentos, guías de uso y programas de becas.
-      Selecciona un documento para comenzar.
-    </p>
   </section>
 
-  <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 pb-12">
-    {docs.map((doc) => (
-      <DocCard
-        icon={doc.icon}
-        title={doc.title}
-        description={doc.description}
-        href={`/${doc.id}`}
-      />
-    ))}
+  <!-- Document Cards Grid -->
+  <section class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-extrabold text-slate-900">Documentos Disponibles</h2>
+        <p class="text-xs text-slate-500 mt-1">Selecciona una categoría para explorar la información oficial completa.</p>
+      </div>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {docs.map((doc) => (
+        <DocCard
+          icon={doc.icon}
+          title={doc.title}
+          description={doc.description}
+          href={`/${doc.id}`}
+          category={doc.category}
+          badge={doc.badge}
+          readTime={doc.readTime}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Platform Highlights Banner -->
+  <section class="p-8 lg:p-10 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mt-12 -mr-12 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+    
+    <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+      <div class="space-y-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold">
+          🎓 AprendeYa Academy
+        </span>
+        <h3 class="text-2xl lg:text-3xl font-extrabold tracking-tight">
+          Formación con validez internacional y soporte constante
+        </h3>
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed opacity-90">
+          Nuestra misión es llevar educación accesible de alto impacto a miles de estudiantes. Cada política está diseñada para garantizar tu crecimiento profesional y proteger tu inversión.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
+          <div class="text-xl mb-1">📜</div>
+          <div class="text-xs font-bold text-white">Certificados QR</div>
+          <div class="text-[11px] text-slate-300">Verificables internacionalmente</div>
+        </div>
+        <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
+          <div class="text-xl mb-1">💡</div>
+          <div class="text-xs font-bold text-white">Becas Inclusivas</div>
+          <div class="text-[11px] text-slate-300">Apoyo a talentos excepcionales</div>
+        </div>
+        <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
+          <div class="text-xl mb-1">💬</div>
+          <div class="text-xs font-bold text-white">Comunidad Activa</div>
+          <div class="text-[11px] text-slate-300">Foros y mentores en vivo</div>
+        </div>
+        <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
+          <div class="text-xl mb-1">🛡️</div>
+          <div class="text-xs font-bold text-white">Garantía total</div>
+          <div class="text-[11px] text-slate-300">Políticas claras de reembolso</div>
+        </div>
+      </div>
+    </div>
   </section>
 </BaseLayout>

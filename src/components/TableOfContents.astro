@@ -1,0 +1,96 @@
+---
+export interface Props {
+  sections: { title: string; content: string }[]
+}
+
+const { sections } = Astro.props
+---
+
+<!-- Mobile Collapsible Table of Contents Accordion -->
+<div class="lg:hidden w-full mb-8">
+  <details class="group bg-white rounded-2xl border border-slate-200/80 shadow-2xs overflow-hidden">
+    <summary class="flex items-center justify-between p-4 cursor-pointer select-none text-xs font-bold text-slate-800 hover:bg-slate-50 transition-colors">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><line x1="21" x2="3" y1="6" y2="6"/><line x1="15" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>
+        Índice del documento ({sections.length} secciones)
+      </span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="p-4 pt-0 border-t border-slate-100 bg-slate-50/50 space-y-1 text-xs">
+      {sections.map((sec) => {
+        const id = sec.title.toLowerCase().replace(/\s+/g, '-')
+        return (
+          <a
+            href={`#${id}`}
+            class="block py-2 px-3 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition-colors line-clamp-1"
+          >
+            {sec.title}
+          </a>
+        )
+      })}
+    </div>
+  </details>
+</div>
+
+<!-- Desktop Sticky Table of Contents -->
+<aside class="hidden lg:block w-64 shrink-0">
+  <div class="sticky top-24 space-y-6">
+    <div class="p-4 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-2xs">
+      <div class="flex items-center gap-2 mb-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><line x1="21" x2="3" y1="6" y2="6"/><line x1="15" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>
+        En esta página
+      </div>
+      <nav class="space-y-1 text-xs">
+        {sections.map((sec) => {
+          const id = sec.title.toLowerCase().replace(/\s+/g, '-')
+          return (
+            <a
+              href={`#${id}`}
+              data-toc-link={id}
+              class="block py-1.5 px-2.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 transition-colors line-clamp-1 border-l-2 border-transparent"
+            >
+              {sec.title}
+            </a>
+          )
+        })}
+      </nav>
+    </div>
+
+    <!-- Quick Help Badge -->
+    <div class="p-4 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl text-white shadow-lg shadow-blue-500/15">
+      <div class="text-xs font-semibold text-blue-200 mb-1">¿Necesitas ayuda extra?</div>
+      <p class="text-xs leading-relaxed opacity-90 mb-3">Consulta con nuestro equipo de soporte académico en cualquier momento.</p>
+      <a href="mailto:soporte@aprendeya.edu" class="inline-flex items-center gap-1.5 text-xs font-bold bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-1.5 rounded-lg transition-colors">
+        Contactar soporte
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<script>
+  // ScrollSpy indicator for active TOC item
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id")
+          document.querySelectorAll("[data-toc-link]").forEach((link) => {
+            if (link.getAttribute("data-toc-link") === id) {
+              link.classList.add("text-blue-600", "bg-blue-50", "font-semibold", "border-blue-600")
+              link.classList.remove("text-slate-600", "border-transparent")
+            } else {
+              link.classList.remove("text-blue-600", "bg-blue-50", "font-semibold", "border-blue-600")
+              link.classList.add("text-slate-600", "border-transparent")
+            }
+          })
+        }
+      })
+    },
+    { rootMargin: "-80px 0px -60% 0px" }
+  )
+
+  document.querySelectorAll("section[id]").forEach((section) => {
+    observer.observe(section)
+  })
+</script>

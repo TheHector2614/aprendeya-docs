@@ -3,33 +3,66 @@ import "../styles/global.css"
 import Header from "../components/Header.astro"
 import Sidebar from "../components/Sidebar.astro"
 import Footer from "../components/Footer.astro"
+import AIChatWidget from "../components/AIChatWidget.astro"
 
 export interface Props {
   title?: string
+  description?: string
 }
 
-const { title } = Astro.props
+const { title, description = "Centro de documentación oficial de AprendeYa - Reglamento, becas, reembolsos y guías de uso." } = Astro.props
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Documentación oficial de AprendeYa - Plataforma educativa" />
-    <title>{title ? `${title} | AprendeYa` : "AprendeYa | Documentación"}</title>
+    <meta name="description" content={description} />
+    <title>{title ? `${title} | AprendeYa Docs` : "AprendeYa | Centro de Documentación"}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
-  <body class="bg-surface text-gray-900 antialiased">
+  <body class="bg-slate-50 text-slate-900 antialiased min-h-full flex flex-col selection:bg-blue-500 selection:text-white">
+    
+    <!-- Top Scroll Reading Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 z-50 transition-all duration-150" style="width: 0%"></div>
+
+    <!-- Main Site Navigation Header -->
     <Header />
-    <div class="flex">
+
+    <!-- Site Layout Wrapper -->
+    <div class="flex-1 flex max-w-7xl w-full mx-auto relative">
+      <!-- Fixed Sidebar -->
       <Sidebar />
-      <main class="flex-1 min-h-[calc(100vh-4rem)] md:ml-64">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <!-- Content + Footer Right Column -->
+      <div class="flex-1 min-w-0 md:ml-64 flex flex-col justify-between min-h-[calc(100vh-4rem)]">
+        <main class="flex-1 px-4 sm:px-6 lg:px-10 py-8 lg:py-10">
           <slot />
-        </div>
-      </main>
+        </main>
+        
+        <!-- Footer aligned inside the main column -->
+        <Footer />
+      </div>
     </div>
-    <Footer />
+
+    <!-- Floating AI Assistant Widget -->
+    <AIChatWidget />
+
+    <script>
+      // Scroll Progress Indicator
+      window.addEventListener("scroll", () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+        const scrolled = (winScroll / height) * 100
+        const progress = document.getElementById("scroll-progress")
+        if (progress) {
+          progress.style.width = scrolled + "%"
+        }
+      })
+    </script>
   </body>
 </html>
