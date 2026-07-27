@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "${{ secrets.OCI_AUTH_TOKEN }}" | docker login \
             ${{ env.OCI_REGION }}.ocir.io \
-            -u ${{ secrets.OCI_USER_NAME }} \
+            -u ${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ secrets.OCI_USER_NAME }} \
             --password-stdin
 
       - name: Build Docker image
