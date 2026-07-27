@@ -38,8 +38,9 @@ def main():
         return
 
     for i, r in enumerate(results, 1):
+        seccion = f" / {r['seccion']}" if r.get("seccion") else ""
         print(f"{'='*60}")
-        print(f"{i}. [{r['categoria']}] {r['documento']}")
+        print(f"{i}. [{r['categoria']}] {r['documento']}{seccion}")
         print(f"   Distancia: {r['distancia']}")
         print(f"   ID: {r['id']}")
         print(f"   {r['contenido']}")

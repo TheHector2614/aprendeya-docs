@@ -93,6 +93,86 @@ documentos:
       emprendimiento), requisitos, postulación y programa de afiliados.
     palabras_clave: ["becas", "afiliados", "inclusión", "mérito", "emprendimiento"]
 
+  - id: ACA-006
+    titulo: "Guía de Inscripción a Cursos"
+    categoria: ACA
+    subcategoria: "Procesos Académicos"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/guia-inscripcion)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Proceso paso a paso para inscribirse en cursos: requisitos previos,
+      métodos de inscripción, confirmación, acceso y política de cambios.
+    palabras_clave: ["inscripción", "cursos", "matrícula", "registro", "acceso"]
+
+  - id: ACA-007
+    titulo: "Instructivo de Uso de Foros y Comunidad"
+    categoria: ACA
+    subcategoria: "Comunidad"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/foros-comunidad)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Soporte al Estudiante"
+    descripcion: >
+      Normas de participación, creación de temas, grupos de estudio,
+      eventos de networking y webinars semanales.
+    palabras_clave: ["foros", "comunidad", "grupos", "networking", "eventos"]
+
+  - id: ACA-008
+    titulo: "Guía del Instructor"
+    categoria: ACA
+    subcategoria: "Docencia"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/guia-instructor)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Guía para instructores: creación de cursos, estructura de módulos,
+      evaluación de estudiantes, interacción en foros y política de pagos.
+    palabras_clave: ["instructor", "creación", "cursos", "evaluación", "pagos"]
+
+  - id: ACA-009
+    titulo: "Política de Evaluación y Calificaciones"
+    categoria: ACA
+    subcategoria: "Normatividad"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/politica-evaluacion)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Sistema de evaluación, escala de calificación (0-100), intentos
+      permitidos, apelaciones y política de honestidad académica.
+    palabras_clave: ["evaluación", "calificaciones", "apelación", "notas", "honestidad"]
+
+  - id: ACA-010
+    titulo: "Calendario Académico 2026-2027"
+    categoria: ACA
+    subcategoria: "Procesos Académicos"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/calendario-academico)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Periodos académicos 2026, feriados Colombia, cursos intensivos de
+      verano, fechas clave de inscripción y evaluaciones.
+    palabras_clave: ["calendario", "periodos", "feriados", "inscripción", "evaluaciones"]
+
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: LEGAL (LEG)
   # ────────────────────────────────────────────────────────────────────────────
@@ -127,6 +207,54 @@ documentos:
       Política de tratamiento de datos personales conforme a la legislación
       aplicable (Ley 1581 de 2012 y Decreto 1377 de 2012 para Colombia).
     palabras_clave: ["privacidad", "datos", "protección", "LGPD", "habeas data"]
+
+  - id: LEG-003
+    titulo: "Política de Propiedad Intelectual"
+    categoria: LEG
+    subcategoria: "Propiedad Intelectual"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/propiedad-intelectual)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: VIG
+    responsable: "Área Jurídica"
+    descripcion: >
+      Titularidad del contenido de instructores, licencias, contenido de
+      terceros, uso por estudiantes, infracciones y marca AprendeYa.
+    palabras_clave: ["propiedad intelectual", "derechos de autor", "licencia", "infracción"]
+
+  - id: LEG-004
+    titulo: "Contrato de Prestación de Servicios para Instructores"
+    categoria: LEG
+    subcategoria: "Contratos"
+    formato: DOCX
+    fuente: "SharePoint — Legal/Contratos/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: BOR
+    responsable: "Área Jurídica"
+    descripcion: >
+      Contrato entre AprendeYa y los instructores: objeto, regalías (70%),
+      obligaciones del instructor, duración y terminación.
+    palabras_clave: ["contrato", "instructor", "regalías", "servicios", "terminación"]
+
+  - id: LEG-005
+    titulo: "Política de Cookies"
+    categoria: LEG
+    subcategoria: "Cumplimiento"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/cookies)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: VIG
+    responsable: "Área Jurídica"
+    descripcion: >
+      Tipos de cookies utilizadas, finalidad, gestión por el usuario,
+      cookies de terceros y política de actualización.
+    palabras_clave: ["cookies", "privacidad", "rastreo", "consentimiento", "navegación"]
 
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: RECURSOS HUMANOS (RH)
@@ -163,6 +291,102 @@ documentos:
       conectividad, ergonomía y derecho a la desconexión.
     palabras_clave: ["remoto", "teletrabajo", "home office", "horarios"]
 
+  - id: RH-003
+    titulo: "Política de Vacaciones y Ausencias"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Políticas/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Política de vacaciones anuales, ausencias justificadas, permisos
+      remunerados y procedimiento de registro y aprobación.
+    palabras_clave: ["vacaciones", "ausencias", "permisos", "incapacidad", "licencias"]
+
+  - id: RH-004
+    titulo: "Política de Nómina y Compensaciones"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Políticas/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Estructura salarial, frecuencia de pago, bonificaciones por desempeño,
+      referidos y deducciones de ley y voluntarias.
+    palabras_clave: ["nómina", "compensaciones", "salario", "bonificaciones", "deducciones"]
+
+  - id: RH-005
+    titulo: "Política de Bienestar y Salud Mental"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Bienestar/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Programas de apoyo psicológico, equilibrio vida-laboral, días de
+      bienestar y prevención del acoso laboral.
+    palabras_clave: ["bienestar", "salud mental", "acoso", "desconexión", "apoyo"]
+
+  - id: RH-006
+    titulo: "Código de Ética y Convivencia"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Ética/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Principios rectores, conflicto de intereses, uso de recursos,
+      regalos y atenciones, y línea ética de denuncia.
+    palabras_clave: ["ética", "convivencia", "conflicto", "integridad", "denuncia"]
+
+  - id: RH-007
+    titulo: "Política de Capacitación y Desarrollo"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Capacitación/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Presupuesto anual de formación ($1,500 USD), plan de desarrollo
+      individual, programa de mentoría y capacitaciones obligatorias.
+    palabras_clave: ["capacitación", "desarrollo", "mentoría", "formación", "PDI"]
+
+  - id: RH-008
+    titulo: "Política de Igualdad y No Discriminación"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "SharePoint — RH/Diversidad/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Compromiso con la diversidad, igualdad salarial, procesos de
+      selección inclusivos, ajustes razonables y canal de denuncia.
+    palabras_clave: ["igualdad", "diversidad", "discriminación", "inclusión", "equidad"]
+
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: FINANCIERO (FIN)
   # ────────────────────────────────────────────────────────────────────────────
@@ -197,6 +421,54 @@ documentos:
       Presupuesto operativo y de inversiones para la vigencia 2026.
       Incluye proyección de ingresos por matrículas y suscripciones.
     palabras_clave: ["presupuesto", "2026", "ingresos", "inversión"]
+
+  - id: FIN-003
+    titulo: "Estados Financieros 2025"
+    categoria: FIN
+    subcategoria: "Contabilidad"
+    formato: XLSX
+    fuente: "SharePoint — Financiero/Contabilidad/"
+    version: "1.0"
+    vigencia: "2025-12"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Financiera"
+    descripcion: >
+      Balance General y Estado de Resultados 2025 vs 2024. Ingresos
+      operacionales de $3,200M, utilidad neta de $560M.
+    palabras_clave: ["estados financieros", "balance", "P&L", "2025", "ingresos"]
+
+  - id: FIN-004
+    titulo: "Proyección Financiera 2026-2027"
+    categoria: FIN
+    subcategoria: "Presupuesto"
+    formato: XLSX
+    fuente: "SharePoint — Financiero/Presupuesto/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Financiera"
+    descripcion: >
+      Proyección de ingresos, estudiantes, CAC, LTV, márgenes y NPS
+      para 2026-2027. Incluye hoja de supuestos.
+    palabras_clave: ["proyección", "2026", "2027", "crecimiento", "métricas"]
+
+  - id: FIN-005
+    titulo: "Política de Reembolso de Gastos y Viáticos"
+    categoria: FIN
+    subcategoria: "Gastos"
+    formato: XLSX
+    fuente: "SharePoint — Financiero/Gastos/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Financiera"
+    descripcion: >
+      Topes diarios de alimentación, transporte, hospedaje, viáticos
+      internacionales y procedimiento de solicitud de reembolso.
+    palabras_clave: ["reembolso", "gastos", "viáticos", "viajes", "factura"]
 
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: OPERACIONES (OPE)
@@ -233,6 +505,54 @@ documentos:
       o crisis que afecten la continuidad del servicio educativo.
     palabras_clave: ["continuidad", "contingencia", "riesgos", "BCP", "DRP"]
 
+  - id: OPE-003
+    titulo: "Manual de Procesos Operativos"
+    categoria: OPE
+    subcategoria: "Procesos"
+    formato: DOCX
+    fuente: "SharePoint — Operaciones/Procesos/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Coordinación de Operaciones"
+    descripcion: >
+      Manual de procesos operativos: gestión de usuarios, procesamiento
+      de pagos, publicación de cursos y gestión de certificados.
+    palabras_clave: ["procesos", "operaciones", "usuarios", "pagos", "certificados"]
+
+  - id: OPE-004
+    titulo: "Procedimiento de Gestión de Incidentes de Seguridad"
+    categoria: OPE
+    subcategoria: "Riesgos"
+    formato: DOCX
+    fuente: "SharePoint — Operaciones/Seguridad/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Coordinación de Operaciones"
+    descripcion: >
+      Clasificación de incidentes (crítico/alto/medio/bajo), flujo de
+      respuesta, tiempos de contención y notificaciones obligatorias.
+    palabras_clave: ["incidentes", "seguridad", "contención", "respuesta", "notificación"]
+
+  - id: OPE-005
+    titulo: "Manual de Infraestructura Física"
+    categoria: OPE
+    subcategoria: "Infraestructura"
+    formato: DOCX
+    fuente: "SharePoint — Operaciones/Infraestructura/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Coordinación de Operaciones"
+    descripcion: >
+      Sedes (Bogotá, Medellín, Cali), horarios, acceso, equipamiento
+      y seguridad física de las instalaciones.
+    palabras_clave: ["oficinas", "sedes", "equipamiento", "acceso", "seguridad física"]
+
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: TECNOLOGÍA (TEC)
   # ────────────────────────────────────────────────────────────────────────────
@@ -267,6 +587,54 @@ documentos:
       Pipeline de CI/CD, configuración de entornos, variables de entorno,
       y procedimientos de release.
     palabras_clave: ["devops", "CI/CD", "despliegue", "release", "pipelines"]
+
+  - id: TEC-003
+    titulo: "Manual de APIs y Webhooks"
+    categoria: TEC
+    subcategoria: "Desarrollo"
+    formato: MD
+    fuente: "Repositorio GitHub — docs/api/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Ingeniería"
+    descripcion: >
+      Endpoints de la API REST, autenticación, rate limiting y eventos
+      de webhook disponibles para integraciones externas.
+    palabras_clave: ["API", "webhooks", "endpoints", "integración", "desarrolladores"]
+
+  - id: TEC-004
+    titulo: "Política de Seguridad Informática"
+    categoria: TEC
+    subcategoria: "Seguridad"
+    formato: MD
+    fuente: "Repositorio GitHub — docs/security/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Ingeniería"
+    descripcion: >
+      Controles de acceso, gestión de parches, cifrado de datos,
+      seguridad de red y políticas de dispositivos.
+    palabras_clave: ["seguridad", "MFA", "cifrado", "parches", "firewall"]
+
+  - id: TEC-005
+    titulo: "Guía de Estándares de Código"
+    categoria: TEC
+    subcategoria: "Desarrollo"
+    formato: MD
+    fuente: "Repositorio GitHub — docs/standards/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Ingeniería"
+    descripcion: >
+      Convenciones de código, branching strategy, code review,
+      formato de commits y cobertura de tests mínima.
+    palabras_clave: ["estándares", "código", "branching", "code review", "testing"]
 
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: COMERCIAL (COM)
@@ -303,6 +671,38 @@ documentos:
       redes sociales, email marketing y conversión.
     palabras_clave: ["marketing", "SEM", "SEO", "campañas", "adquisición"]
 
+  - id: COM-003
+    titulo: "Programa de Convenios Corporativos"
+    categoria: COM
+    subcategoria: "Corporativo"
+    formato: DOCX
+    fuente: "SharePoint — Comercial/Corporativo/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Comercial"
+    descripcion: >
+      Descuentos progresivos por volumen (15%-35%), requisitos,
+      facturación corporativa y contacto comercial.
+    palabras_clave: ["convenios", "corporativo", "empresas", "descuentos", "B2B"]
+
+  - id: COM-004
+    titulo: "Programa de Fidelización y Referidos"
+    categoria: COM
+    subcategoria: "Fidelización"
+    formato: DOCX
+    fuente: "SharePoint — Comercial/Fidelización/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Comercial"
+    descripcion: >
+      Programa de referidos ($20 USD por amigo), beneficios por niveles
+      (Bronce/Plata/Oro) y puntos por participación.
+    palabras_clave: ["fidelización", "referidos", "lealtad", "puntos", "descuentos"]
+
   # ────────────────────────────────────────────────────────────────────────────
   # CATEGORÍA: CALIDAD (CAL)
   # ────────────────────────────────────────────────────────────────────────────
@@ -321,3 +721,59 @@ documentos:
       Proceso de revisión y aprobación de contenido educativo antes
       de su publicación. Criterios pedagógicos y checklists de calidad.
     palabras_clave: ["calidad", "evaluación", "cursos", "revisión", "pedagogía"]
+
+  - id: CAL-002
+    titulo: "Procedimiento de Quejas, Reclamos y Sugerencias (PQRS)"
+    categoria: CAL
+    subcategoria: "Aseguramiento"
+    formato: DOCX
+    fuente: "SharePoint — Calidad/PQRS/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Canales de recepción, categorías (queja, reclamo, sugerencia),
+      tiempos de respuesta y escalamiento a segunda instancia.
+    palabras_clave: ["PQRS", "quejas", "reclamos", "sugerencias", "escalamiento"]
+
+  - id: CAL-003
+    titulo: "Política de Satisfacción del Cliente (NPS)"
+    categoria: CAL
+    subcategoria: "Aseguramiento"
+    formato: DOCX
+    fuente: "SharePoint — Calidad/NPS/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Medición trimestral de NPS, meta 2026 (55) y 2027 (65),
+      encuestas transaccionales y planes de acción correctivos.
+    palabras_clave: ["NPS", "satisfacción", "encuestas", "promotores", "detractores"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: REFERENCIA (REF)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: REF-001
+    titulo: "Directorio de Contactos por Área"
+    categoria: REF
+    subcategoria: "Corporativo"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/referencia/contactos)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Directorio corporativo con los datos de contacto de todas las áreas
+      de AprendeYa: Dirección Académica, Soporte al Estudiante, Recursos
+      Humanos, Área Jurídica, Dirección Financiera, Coordinación de Soporte,
+      Dirección Comercial, Ingeniería, Producto y Calidad.
+    palabras_clave:
+      ["contacto", "directorio", "teléfono", "correo", "áreas", "RH",
+       "jurídico", "financiero", "soporte", "comercial", "ingeniería",
+       "calidad", "académico", "producto"]

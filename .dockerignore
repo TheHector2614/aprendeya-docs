@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+env.template
+.astro
+node_modules
+dist
+src
+public
+package.json
+package-lock.json
+tsconfig.json
+astro.config.mjs
+postcss.config.mjs
+__pycache__
+*.pyc
+.DS_Store

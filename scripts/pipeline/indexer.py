@@ -5,11 +5,16 @@ from .chunker import Chunk
 
 
 class Indexer:
-    def __init__(self, persist_dir: str, collection_name: str):
+    def __init__(self, persist_dir: str, collection_name: str, reset: bool = False):
         self.client = chromadb.PersistentClient(
             path=persist_dir,
             settings=Settings(anonymized_telemetry=False),
         )
+        if reset:
+            try:
+                self.client.delete_collection(name=collection_name)
+            except ValueError:
+                pass
         self.collection = self.client.get_or_create_collection(
             name=collection_name,
             metadata={"hnsw:space": "cosine"},
@@ -22,6 +27,7 @@ class Indexer:
                 "doc_id": c.doc_id,
                 "doc_title": c.doc_title,
                 "categoria": c.categoria,
+                "seccion": c.seccion or "",
                 "chunk_index": c.chunk_index,
             }
             for c in chunks
@@ -44,10 +50,12 @@ class Indexer:
         )
         output = []
         for i in range(len(results["ids"][0])):
+            meta = results["metadatas"][0][i]
             output.append({
                 "id": results["ids"][0][i],
-                "documento": results["metadatas"][0][i].get("doc_title"),
-                "categoria": results["metadatas"][0][i].get("categoria"),
+                "documento": meta.get("doc_title"),
+                "categoria": meta.get("categoria"),
+                "seccion": meta.get("seccion", ""),
                 "contenido": results["documents"][0][i][:300] + "...",
                 "distancia": round(results["distances"][0][i], 4),
             })

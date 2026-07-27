@@ -5,3 +5,15 @@ __pycache__/
 *.pyc
 .DS_Store
 *.local
+
+# Secrets
+.env
+
+# ChromaDB — auto-generated UUIDs, rebuilt in Docker
+index/chroma/*
+!index/chroma/.gitkeep
+
+# Synced document directories (external sources)
+raw/drive/
+raw/github/
+raw/sharepoint/
