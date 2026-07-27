@@ -75,15 +75,49 @@ python ingest.py             # extrae → chunk → embed → indexar
 python search.py "mi consulta" --top-k 3
 ```
 
-### Estructura del pipeline
+### Agente RAG (Etapa 3)
+
+El directorio `scripts/` incluye el agente de búsqueda y generación de respuestas:
+
+```
+scripts/
+├── pipeline/
+│   └── agent.py        # Agente RAG: recupera chunks relevantes y arma respuesta
+├── api.py              # API REST (FastAPI) — POST /ask
+├── chat.html           # Interfaz web de chat (abrir en navegador)
+├── run.ps1             # Script de inicio: .\scripts\run.ps1
+├── test_agent.py       # Pruebas del agente
+└── requirements.txt
+```
+
+**Uso del agente:**
+```bash
+cd scripts
+python -c "from pipeline.agent import Agent; a=Agent(); print(a.ask('¿Qué becas hay?')['respuesta'])"
+```
+
+**API + Chat web:**
+```bash
+python scripts/api.py                # API en http://localhost:8000
+# Abrir scripts/chat.html en el navegador (o servir con Live Server)
+```
+
+**Script de inicio:**
+```powershell
+.\scripts\run.ps1          # modo chat (API + web)
+.\scripts\run.ps1 api      # solo API
+.\scripts\run.ps1 ingest   # re-indexar documentos
+```
+
+### Pipeline completo
 
 ```
 Etapa 1  →  Recolección y Organización  (docs-management/)    ✓
 Etapa 2  →  Procesamiento e Indexación  (scripts/ + index/)   ✓
-Etapa 3  →  Búsqueda y Generación de Respuestas                ← SIGUIENTE
+Etapa 3  →  Búsqueda y Generación de Respuestas  (agent/)     ✓
 ```
 
 ## Requisitos
 
 - **Node.js 18+** — para el sitio web
-- **Python 3.10+** — para el pipeline de procesamiento
+- **Python 3.10+** — para el pipeline de procesamiento y el agente RAG

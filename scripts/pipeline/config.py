@@ -6,7 +6,7 @@ class Config:
     INVENTARIO = ROOT / "docs-management" / "inventario.yaml"
     RAW_DIR = ROOT / "raw"
     INDEX_DIR = ROOT / "index" / "chroma"
-    CHUNK_SIZE = 500
-    CHUNK_OVERLAP = 100
+    CHUNK_SIZE = 200
+    CHUNK_OVERLAP = 50
     EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
     COLLECTION_NAME = "aprendeya-docs"
