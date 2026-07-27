@@ -1,0 +1,129 @@
+# =============================================================================
+# CATEGORÍAS DE NEGOCIO — AprendeYa
+# =============================================================================
+# Cada categoría tiene un responsable que aprueba el contenido y define
+# cuándo debe actualizarse. El código de categoría se usa como prefijo
+# en los IDs de los documentos (ej: ACA-001, LEG-002).
+
+categorias:
+
+  - codigo: ACA
+    nombre: "Académico"
+    descripcion: >
+      Documentos relacionados con la oferta educativa, normatividad
+      académica, reglamentos estudiantiles, guías de uso y programas
+      de formación.
+    responsable: "Dirección Académica"
+    fuentes_principales:
+      - "Sitio web AprendeYa (HTML)"
+    tipos_documento:
+      - Reglamentos
+      - Políticas académicas
+      - Guías de uso
+      - Programas de becas
+      - FAQs
+
+  - codigo: LEG
+    nombre: "Legal y Compliance"
+    descripcion: >
+      Documentos jurídicos: términos y condiciones, políticas de
+      privacidad, contratos con instructores y proveedores, y
+      cumplimiento normativo.
+    responsable: "Área Jurídica"
+    fuentes_principales:
+      - "Sitio web AprendeYa (HTML)"
+      - "Google Drive — Jurídico/"
+    tipos_documento:
+      - Términos y condiciones
+      - Políticas de privacidad
+      - Contratos
+      - Autorizaciones de datos
+
+  - codigo: RH
+    nombre: "Recursos Humanos"
+    descripcion: >
+      Documentos internos de gestión del talento: manuales de
+      inducción, políticas laborales, evaluaciones de desempeño
+      y beneficios para colaboradores.
+    responsable: "Recursos Humanos"
+    fuentes_principales:
+      - "Google Drive — RH/"
+    tipos_documento:
+      - Manuales de inducción
+      - Políticas laborales
+      - Evaluaciones de desempeño
+      - Beneficios
+
+  - codigo: FIN
+    nombre: "Financiero"
+    descripcion: >
+      Documentos de gestión financiera: presupuestos, facturación,
+      cobranzas, estados financieros e informes de tesorería.
+    responsable: "Dirección Financiera"
+    fuentes_principales:
+      - "SharePoint — Financiero/"
+    tipos_documento:
+      - Presupuestos
+      - Facturación y cobranzas
+      - Estados financieros
+      - Informes de tesorería
+
+  - codigo: OPE
+    nombre: "Operaciones"
+    descripcion: >
+      Documentos operativos: procedimientos de soporte, SLA,
+      planes de continuidad, gestión de infraestructura y
+      manuales de procesos.
+    responsable: "Coordinación de Operaciones"
+    fuentes_principales:
+      - "Google Drive — Operaciones/"
+    tipos_documento:
+      - Procedimientos
+      - SLAs
+      - Planes de continuidad
+      - Manuales de procesos
+
+  - codigo: TEC
+    nombre: "Tecnología"
+    descripcion: >
+      Documentación técnica de ingeniería: arquitectura del
+      sistema, manuales de despliegue, documentación de APIs,
+      bases de datos y configuración de infraestructura.
+    responsable: "Equipo de Ingeniería"
+    fuentes_principales:
+      - "Repositorio GitHub — docs/"
+    tipos_documento:
+      - Arquitectura
+      - Manuales de despliegue
+      - Documentación de API
+      - Guías de desarrollo
+
+  - codigo: COM
+    nombre: "Comercial y Marketing"
+    descripcion: >
+      Documentos del área comercial: catálogo de cursos y precios,
+      estrategias de marketing, planes de ventas y análisis de
+      competencia.
+    responsable: "Dirección Comercial"
+    fuentes_principales:
+      - "Google Drive — Comercial/"
+    tipos_documento:
+      - Catálogos
+      - Estrategias de marketing
+      - Planes de ventas
+      - Análisis de mercado
+
+  - codigo: CAL
+    nombre: "Calidad"
+    descripcion: >
+      Documentos del sistema de gestión de calidad: procedimientos
+      de aseguramiento, checklists de revisión pedagógica e
+      indicadores de calidad educativa.
+    responsable: "Dirección Académica"
+    fuentes_principales:
+      - "Google Drive — Calidad/"
+    tipos_documento:
+      - Procedimientos de calidad
+      - Checklists de revisión
+      - Indicadores
+      - Auditorías

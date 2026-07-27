@@ -1,0 +1,128 @@
+# =============================================================================
+# MATRIZ DE ACCESO — AprendeYa
+# =============================================================================
+# Define qué fuentes puede leer el agente de IA, cómo se conecta y
+# quién aprueba los cambios en cada fuente.
+
+fuentes:
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # SITIO WEB (estático, contenido ya generado)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: WEB-001
+    nombre: "Sitio web AprendeYa"
+    tipo: "estático"
+    url: "https://aprendeya-docs.vercel.app"
+    metodo_conexion: "lectura HTTP"
+    autenticacion: false
+    alcance: "Documentos públicos: reglamento, políticas, FAQ, guías"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Dirección Académica"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # GOOGLE DRIVE
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: GDRIVE-001
+    nombre: "Google Drive — RH"
+    tipo: "cloud storage"
+    url: "https://drive.google.com/drive/folders/---RH---"
+    metodo_conexion: "API Google Drive (v3)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — Service Account"
+    alcance: "Carpetas: RH/Inducción/, RH/Políticas/, RH/Beneficios/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Recursos Humanos"
+    curador: "Jefe de RH"
+
+  - id: GDRIVE-002
+    nombre: "Google Drive — Operaciones"
+    tipo: "cloud storage"
+    url: "https://drive.google.com/drive/folders/---OPE---"
+    metodo_conexion: "API Google Drive (v3)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — Service Account"
+    alcance: "Carpetas: Operaciones/SLA/, Operaciones/Riesgos/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Coordinación de Operaciones"
+    curador: "Coordinador de Operaciones"
+
+  - id: GDRIVE-003
+    nombre: "Google Drive — Comercial"
+    tipo: "cloud storage"
+    url: "https://drive.google.com/drive/folders/---COM---"
+    metodo_conexion: "API Google Drive (v3)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — Service Account"
+    alcance: "Carpetas: Comercial/Catálogo/, Comercial/Marketing/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Dirección Comercial"
+    curador: "Director Comercial"
+
+  - id: GDRIVE-004
+    nombre: "Google Drive — Jurídico"
+    tipo: "cloud storage"
+    url: "https://drive.google.com/drive/folders/---LEG---"
+    metodo_conexion: "API Google Drive (v3)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — Service Account"
+    alcance: "Carpetas: Jurídico/Contratos/, Jurídico/Privacidad/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Área Jurídica"
+    curador: "Director Jurídico"
+
+  - id: GDRIVE-005
+    nombre: "Google Drive — Calidad"
+    tipo: "cloud storage"
+    url: "https://drive.google.com/drive/folders/---CAL---"
+    metodo_conexion: "API Google Drive (v3)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — Service Account"
+    alcance: "Carpetas: Calidad/Procedimientos/, Calidad/Auditorías/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Dirección Académica"
+    curador: "Director Académico"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # SHAREPOINT
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: SP-001
+    nombre: "SharePoint — Financiero"
+    tipo: "cloud storage"
+    url: "https://aprendeya.sharepoint.com/sites/financiero"
+    metodo_conexion: "API Microsoft Graph"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — App Registration"
+    alcance: "Bibliotecas: Financiero/Cobranzas/, Financiero/Presupuesto/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Dirección Financiera"
+    curador: "Director Financiero"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # GITHUB (repositorio de código y documentación técnica)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: GH-001
+    nombre: "Repositorio AprendeYa — GitHub"
+    tipo: "repositorio git"
+    url: "https://github.com/TheHector2614/aprendeya-docs"
+    metodo_conexion: "API GitHub (REST/v3)"
+    autenticacion: true
+    tipo_auth: "Token de acceso (gho_***)"
+    alcance: "docs/architecture/, docs/devops/, docs/api/"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Equipo de Ingeniería"
+    curador: "Tech Lead"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CORREO ELECTRÓNICO (archivos adjuntos en bandejas clave)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: MAIL-001
+    nombre: "Buzón de Proveedores"
+    tipo: "correo electrónico"
+    url: "proveedores@aprendeya.com"
+    metodo_conexion: "API Microsoft Graph (mail)"
+    autenticacion: true
+    tipo_auth: "OAuth 2.0 — App Registration"
+    alcance: "Adjuntos de contratos y facturas de proveedores"
+    permisos_agente: ["lectura"]
+    responsable_actualizacion: "Dirección Financiera"
+    curador: "Auxiliar de proveedores"

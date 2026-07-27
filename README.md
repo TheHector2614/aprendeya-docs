@@ -37,3 +37,22 @@ Los 5 documentos contienen contenido ficticio generado con IA, incluyendo:
 - FAQ (cursos, certificados, pagos, soporte)
 - Guía de plataforma (primeros pasos, navegación, herramientas)
 - Programa de becas y afiliados (tipos, requisitos, comisiones)
+
+## Gestión Documental
+
+El proyecto incluye un sistema completo de organización documental en `docs-management/`:
+
+| Archivo | Propósito |
+|---|---|
+| `inventario.yaml` | Registro maestro con metadatos de todos los documentos |
+| `categorias.yaml` | Definición de 8 categorías de negocio con responsables |
+| `matriz-acceso.yaml` | Fuentes, métodos de conexión y permisos del agente |
+| `ingesta.md` | Plan de ingesta inicial e integración continua |
+
+### Estructura del pipeline
+
+```
+Etapa 1  →  Recolección y Organización  (docs-management/)    ← HECHO
+Etapa 2  →  Procesamiento e Indexación
+Etapa 3  →  Búsqueda y Generación de Respuestas
+```

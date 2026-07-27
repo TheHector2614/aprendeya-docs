@@ -1,0 +1,323 @@
+# =============================================================================
+# INVENTARIO DOCUMENTAL — AprendeYa
+# Registro maestro de todos los documentos corporativos
+# =============================================================================
+# Formato: YAML
+# Códigos de categoría: RH, FIN, LEG, OPE, COM, TEC, ACA, CAL
+# Códigos de formato: PDF, DOCX, MD, HTML, XLSX, PPTX
+# Códigos de estado: VIG (vigente), OBS (obsoleto), BOR (borrador), REV (en revisión)
+# =============================================================================
+
+documentos:
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: ACADÉMICO (ACA)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: ACA-001
+    titulo: "Reglamento del Estudiante"
+    categoria: ACA
+    subcategoria: "Normatividad"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/reglamento-estudiante)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Normas, derechos y deberes de los estudiantes. Incluye disposiciones
+      generales, admisión, evaluación, faltas y sanciones.
+    palabras_clave: ["reglamento", "estudiante", "normas", "conducta", "sanciones"]
+
+  - id: ACA-002
+    titulo: "Política de Reembolso de Matrículas"
+    categoria: ACA
+    subcategoria: "Financiero Académico"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/politica-reembolso)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Condiciones, plazos y procedimiento para solicitar devolución de
+      matrículas. Incluye exclusiones y plazos de devolución por método de pago.
+    palabras_clave: ["reembolso", "devolución", "matrícula", "cancelación"]
+
+  - id: ACA-003
+    titulo: "Preguntas Frecuentes — Cursos y Certificados"
+    categoria: ACA
+    subcategoria: "Soporte"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/faq)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Soporte al Estudiante"
+    descripcion: >
+      FAQ organizada en cuatro bloques: cursos/contenido, certificados,
+      pagos/facturación y soporte técnico.
+    palabras_clave: ["faq", "preguntas", "cursos", "certificados", "pagos", "soporte"]
+
+  - id: ACA-004
+    titulo: "Guía de Uso de la Plataforma"
+    categoria: ACA
+    subcategoria: "Capacitación"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/guia-uso)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Producto"
+    descripcion: >
+      Guía completa de navegación: registro, perfil, reproductor de contenido,
+      seguimiento de progreso y herramientas colaborativas.
+    palabras_clave: ["guía", "plataforma", "navegación", "progreso", "uso"]
+
+  - id: ACA-005
+    titulo: "Programa de Becas y Afiliados"
+    categoria: ACA
+    subcategoria: "Inclusión"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/programa-becas)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Modalidades de beca (mérito académico, inclusión digital, género,
+      emprendimiento), requisitos, postulación y programa de afiliados.
+    palabras_clave: ["becas", "afiliados", "inclusión", "mérito", "emprendimiento"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: LEGAL (LEG)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: LEG-001
+    titulo: "Términos y Condiciones de Uso"
+    categoria: LEG
+    subcategoria: "Contratos"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/terminos)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: BOR
+    responsable: "Área Jurídica"
+    descripcion: >
+      Términos legales que rigen el uso de la plataforma AprendeYa por parte
+      de los usuarios. Pendiente de revisión jurídica.
+    palabras_clave: ["términos", "condiciones", "uso", "legal", "contrato"]
+
+  - id: LEG-002
+    titulo: "Política de Privacidad y Protección de Datos"
+    categoria: LEG
+    subcategoria: "Cumplimiento"
+    formato: HTML
+    fuente: "Sitio web AprendeYa (/privacidad)"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-07"
+    estado: BOR
+    responsable: "Área Jurídica"
+    descripcion: >
+      Política de tratamiento de datos personales conforme a la legislación
+      aplicable (Ley 1581 de 2012 y Decreto 1377 de 2012 para Colombia).
+    palabras_clave: ["privacidad", "datos", "protección", "LGPD", "habeas data"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: RECURSOS HUMANOS (RH)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: RH-001
+    titulo: "Manual de Inducción para Colaboradores"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "Google Drive — RH/Inducción/"
+    version: "2.3"
+    vigencia: "2026-03"
+    proxima_revision: "2026-09"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Guía de inducción para nuevos colaboradores: cultura organizacional,
+      políticas internas, beneficios y código de conducta.
+    palabras_clave: ["inducción", "colaboradores", "bienvenida", "cultura"]
+
+  - id: RH-002
+    titulo: "Política de Trabajo Remoto"
+    categoria: RH
+    subcategoria: "Talento Humano"
+    formato: DOCX
+    fuente: "Google Drive — RH/Políticas/"
+    version: "1.5"
+    vigencia: "2026-01"
+    proxima_revision: "2026-12"
+    estado: VIG
+    responsable: "Recursos Humanos"
+    descripcion: >
+      Lineamientos para la modalidad de trabajo remoto: horarios,
+      conectividad, ergonomía y derecho a la desconexión.
+    palabras_clave: ["remoto", "teletrabajo", "home office", "horarios"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: FINANCIERO (FIN)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: FIN-001
+    titulo: "Política de Facturación y Cobranzas"
+    categoria: FIN
+    subcategoria: "Facturación"
+    formato: XLSX
+    fuente: "SharePoint — Financiero/Cobranzas/"
+    version: "3.0"
+    vigencia: "2026-06"
+    proxima_revision: "2027-06"
+    estado: VIG
+    responsable: "Dirección Financiera"
+    descripcion: >
+      Procedimientos de facturación a estudiantes, plazos de pago,
+      recargos por mora y gestión de cartera.
+    palabras_clave: ["facturación", "cobranzas", "pagos", "cartera", "mora"]
+
+  - id: FIN-002
+    titulo: "Presupuesto Anual 2026"
+    categoria: FIN
+    subcategoria: "Presupuesto"
+    formato: XLSX
+    fuente: "SharePoint — Financiero/Presupuesto/"
+    version: "1.0"
+    vigencia: "2026-01"
+    proxima_revision: "2026-12"
+    estado: VIG
+    responsable: "Dirección Financiera"
+    descripcion: >
+      Presupuesto operativo y de inversiones para la vigencia 2026.
+      Incluye proyección de ingresos por matrículas y suscripciones.
+    palabras_clave: ["presupuesto", "2026", "ingresos", "inversión"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: OPERACIONES (OPE)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: OPE-001
+    titulo: "Procedimiento de Atención al Estudiante"
+    categoria: OPE
+    subcategoria: "Soporte"
+    formato: DOCX
+    fuente: "Google Drive — Operaciones/SLA/"
+    version: "2.0"
+    vigencia: "2026-04"
+    proxima_revision: "2027-04"
+    estado: VIG
+    responsable: "Coordinación de Soporte"
+    descripcion: >
+      SLA y procedimientos del equipo de soporte: tiempos de respuesta,
+      escalamiento, categorización de tickets y reportes.
+    palabras_clave: ["soporte", "SLA", "tickets", "atención", "escalamiento"]
+
+  - id: OPE-002
+    titulo: "Plan de Continuidad del Negocio"
+    categoria: OPE
+    subcategoria: "Riesgos"
+    formato: PDF
+    fuente: "Google Drive — Operaciones/Riesgos/"
+    version: "1.2"
+    vigencia: "2026-02"
+    proxima_revision: "2027-02"
+    estado: VIG
+    responsable: "Coordinación de Operaciones"
+    descripcion: >
+      Plan de contingencia ante fallas tecnológicas, desastres naturales
+      o crisis que afecten la continuidad del servicio educativo.
+    palabras_clave: ["continuidad", "contingencia", "riesgos", "BCP", "DRP"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: TECNOLOGÍA (TEC)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: TEC-001
+    titulo: "Arquitectura del Sistema AprendeYa"
+    categoria: TEC
+    subcategoria: "Infraestructura"
+    formato: MD
+    fuente: "Repositorio GitHub — docs/architecture/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Ingeniería"
+    descripcion: >
+      Documentación técnica de la arquitectura: frontend (Astro + React),
+      backend, base de datos, servicios cloud y diagrama de despliegue.
+    palabras_clave: ["arquitectura", "infraestructura", "despliegue", "stack"]
+
+  - id: TEC-002
+    titulo: "Manual de Despliegue y DevOps"
+    categoria: TEC
+    subcategoria: "Infraestructura"
+    formato: MD
+    fuente: "Repositorio GitHub — docs/devops/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Equipo de Ingeniería"
+    descripcion: >
+      Pipeline de CI/CD, configuración de entornos, variables de entorno,
+      y procedimientos de release.
+    palabras_clave: ["devops", "CI/CD", "despliegue", "release", "pipelines"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: COMERCIAL (COM)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: COM-001
+    titulo: "Catálogo de Cursos y Precios"
+    categoria: COM
+    subcategoria: "Oferta"
+    formato: XLSX
+    fuente: "Google Drive — Comercial/Catálogo/"
+    version: "4.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Comercial"
+    descripcion: >
+      Lista completa de cursos ofrecidos con precios, duración,
+      nivel y requisitos previos.
+    palabras_clave: ["catálogo", "cursos", "precios", "oferta", "planes"]
+
+  - id: COM-002
+    titulo: "Estrategia de Marketing Digital"
+    categoria: COM
+    subcategoria: "Marketing"
+    formato: PPTX
+    fuente: "Google Drive — Comercial/Marketing/"
+    version: "2.1"
+    vigencia: "2026-05"
+    proxima_revision: "2026-11"
+    estado: VIG
+    responsable: "Dirección Comercial"
+    descripcion: >
+      Estrategia de adquisición de estudiantes: campañas SEM/SEO,
+      redes sociales, email marketing y conversión.
+    palabras_clave: ["marketing", "SEM", "SEO", "campañas", "adquisición"]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # CATEGORÍA: CALIDAD (CAL)
+  # ────────────────────────────────────────────────────────────────────────────
+  - id: CAL-001
+    titulo: "Procedimiento de Evaluación de Cursos"
+    categoria: CAL
+    subcategoria: "Aseguramiento"
+    formato: DOCX
+    fuente: "Google Drive — Calidad/Procedimientos/"
+    version: "1.0"
+    vigencia: "2026-07"
+    proxima_revision: "2027-01"
+    estado: VIG
+    responsable: "Dirección Académica"
+    descripcion: >
+      Proceso de revisión y aprobación de contenido educativo antes
+      de su publicación. Criterios pedagógicos y checklists de calidad.
+    palabras_clave: ["calidad", "evaluación", "cursos", "revisión", "pedagogía"]
