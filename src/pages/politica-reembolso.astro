@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { docs } from "../content/docs"
+const doc = docs.find((d) => d.id === "politica-reembolso")!
+---
+
+<BaseLayout title={doc.title}>
+  <article class="doc-section">
+    <div class="mb-8">
+      <span class="text-4xl mb-2 block">{doc.icon}</span>
+      <h1 class="text-3xl font-bold text-gray-900">{doc.title}</h1>
+      <p class="mt-2 text-gray-500 text-lg">{doc.description}</p>
+    </div>
+    {doc.sections.map((section) => (
+      <section>
+        <h2>{section.title}</h2>
+        {section.content.split("\n\n").map((paragraph) => (
+          paragraph.startsWith("- ") ? (
+            <ul>
+              {paragraph.split("\n").map((line) => (
+                <li>{line.replace(/^- /, "")}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>{paragraph}</p>
+          )
+        ))}
+      </section>
+    ))}
+  </article>
+</BaseLayout>

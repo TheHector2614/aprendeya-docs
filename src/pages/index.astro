@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import DocCard from "../components/DocCard.astro"
+import { docs } from "../content/docs"
+---
+
+<BaseLayout title="Inicio">
+  <section class="text-center py-12">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-light mb-6">
+      <span class="text-3xl">🎓</span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+      Documentación <span class="text-primary">AprendeYa</span>
+    </h1>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+      Encuentra toda la información sobre nuestras políticas, reglamentos, guías de uso y programas de becas.
+      Selecciona un documento para comenzar.
+    </p>
+  </section>
+
+  <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 pb-12">
+    {docs.map((doc) => (
+      <DocCard
+        icon={doc.icon}
+        title={doc.title}
+        description={doc.description}
+        href={`/${doc.id}`}
+      />
+    ))}
+  </section>
+</BaseLayout>

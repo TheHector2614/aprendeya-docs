@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-accent: #059669;
+  --color-accent-light: #d1fae5;
+  --color-surface: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.sidebar-link {
+  @apply block px-4 py-2.5 text-sm rounded-lg transition-colors duration-150;
+}
+
+.sidebar-link:hover {
+  @apply bg-blue-50 text-primary;
+}
+
+.sidebar-link.active {
+  @apply bg-primary text-white;
+}
+
+.doc-section h2 {
+  @apply text-2xl font-bold text-gray-900 mt-10 mb-4 pb-2 border-b border-gray-200;
+}
+
+.doc-section h3 {
+  @apply text-xl font-semibold text-gray-800 mt-6 mb-3;
+}
+
+.doc-section p {
+  @apply text-gray-700 leading-relaxed mb-4;
+}
+
+.doc-section ul {
+  @apply list-disc pl-6 mb-4 space-y-1.5 text-gray-700;
+}
+
+.doc-section ol {
+  @apply list-decimal pl-6 mb-4 space-y-1.5 text-gray-700;
+}
+
+.doc-section strong {
+  @apply font-semibold text-gray-900;
+}
