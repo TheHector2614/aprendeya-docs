@@ -12,6 +12,11 @@ fastapi>=0.110.0
 uvicorn>=0.29.0
 oci>=2.130.0
 
+# pipeline/generator.py importa ambos en el nivel de módulo / al crear el
+# cliente; sin ellos el contenedor falla al arrancar con ModuleNotFoundError.
+python-dotenv>=1.0.0
+groq>=0.11.0
+
 # Opcional (OCR para PDFs escaneados):
 # pytesseract>=0.3.10
 # Pillow>=10.0.0

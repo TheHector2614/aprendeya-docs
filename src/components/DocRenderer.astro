@@ -5,9 +5,22 @@ export interface Props {
 
 const { content } = Astro.props
 
-// Helper to format inline bold **text**
+const ESCAPES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+}
+
+// El resultado se inyecta con `set:html`, así que el texto se escapa primero y
+// solo después se reintroduce el único marcado permitido (**negrita**). De lo
+// contrario cualquier documento que llegue de una fuente externa (raw/drive,
+// raw/github, raw/sharepoint) podría inyectar HTML arbitrario en la página.
 function formatInlineText(text: string) {
-  return text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
+  return text
+    .replace(/[&<>"']/g, (m) => ESCAPES[m])
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
 }
 
 // Split content by double newlines into logical blocks

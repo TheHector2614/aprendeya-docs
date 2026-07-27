@@ -12,6 +12,8 @@ export interface DocPage {
   category: string
   badge: string
   readTime: string
+  /** Color de acento Tailwind; ver src/lib/accent.ts */
+  accent: "blue" | "emerald" | "indigo"
   sections: DocSection[]
 }
 
@@ -25,6 +27,7 @@ export const docs: DocPage[] = [
     category: "Normativa Académica",
     badge: "Oficial",
     readTime: "7 min de lectura",
+    accent: "blue",
     sections: [
       {
         title: "Disposiciones Generales",
@@ -96,6 +99,7 @@ Las sanciones pueden incluir: amonestación por escrito, suspensión temporal de
     category: "Tutoriales y Guías",
     badge: "Esencial",
     readTime: "6 min de lectura",
+    accent: "blue",
     sections: [
       {
         title: "Primeros Pasos",
@@ -166,6 +170,7 @@ Evaluación entre pares: Algunos cursos incluyen actividades donde puedes revisa
     category: "Oportunidades",
     badge: "Convocatoria Abierta",
     readTime: "8 min de lectura",
+    accent: "emerald",
     sections: [
       {
         title: "Tipos de Beca",
@@ -268,6 +273,7 @@ Si tienes más dudas, escríbenos a becas@aprendeya.com.`,
     category: "Facturación y Garantía",
     badge: "Financiero",
     readTime: "5 min de lectura",
+    accent: "indigo",
     sections: [
       {
         title: "Condiciones Generales",
@@ -332,6 +338,7 @@ El reembolso se realiza por el mismo medio de pago utilizado en la compra origin
     category: "Soporte General",
     badge: "Soporte 24/7",
     readTime: "5 min de lectura",
+    accent: "blue",
     sections: [
       {
         title: "Cursos y Contenido",

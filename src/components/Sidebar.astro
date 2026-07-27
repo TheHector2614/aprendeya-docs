@@ -11,7 +11,9 @@ const currentPath = Astro.url.pathname
 
 <!-- Sidebar Container -->
 <aside
+  id="site-sidebar"
   data-sidebar
+  aria-label="Navegación de documentos"
   class="fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] bg-white/95 backdrop-blur-md border-r border-slate-200/80 overflow-y-auto -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-2xl md:shadow-none"
 >
   <nav class="p-4 space-y-6">
@@ -67,39 +69,51 @@ const currentPath = Astro.url.pathname
 </aside>
 
 <script>
-  const sidebar = document.querySelector("[data-sidebar]")
+  const sidebar = document.querySelector<HTMLElement>("[data-sidebar]")
   const toggle = document.getElementById("menu-toggle")
   const backdrop = document.getElementById("sidebar-backdrop")
+  const mobile = window.matchMedia("(max-width: 767px)")
 
-  function openSidebar() {
-    sidebar?.classList.remove("-translate-x-full")
-    sidebar?.classList.add("translate-x-0")
-    backdrop?.classList.remove("hidden")
+  function setOpen(open: boolean) {
+    sidebar?.classList.toggle("-translate-x-full", !open)
+    sidebar?.classList.toggle("translate-x-0", open)
+    backdrop?.classList.toggle("hidden", !open)
+    toggle?.setAttribute("aria-expanded", String(open))
+    toggle?.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú")
+    syncInert()
   }
 
-  function closeSidebar() {
-    sidebar?.classList.add("-translate-x-full")
-    sidebar?.classList.remove("translate-x-0")
-    backdrop?.classList.add("hidden")
+  // En móvil el panel cerrado sigue en el DOM, solo desplazado fuera de
+  // pantalla: sin `inert` sus enlaces seguían siendo tabulables y los leía el
+  // lector de pantalla. En escritorio está siempre visible, nunca inerte.
+  function syncInert() {
+    if (!sidebar) return
+    const hidden = mobile.matches && !sidebar.classList.contains("translate-x-0")
+    sidebar.inert = hidden
+    sidebar.setAttribute("aria-hidden", String(hidden))
   }
 
   toggle?.addEventListener("click", (e) => {
     e.stopPropagation()
-    if (sidebar?.classList.contains("translate-x-0")) {
-      closeSidebar()
-    } else {
-      openSidebar()
-    }
+    setOpen(!sidebar?.classList.contains("translate-x-0"))
   })
 
-  backdrop?.addEventListener("click", closeSidebar)
+  backdrop?.addEventListener("click", () => setOpen(false))
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobile.matches && sidebar?.classList.contains("translate-x-0")) {
+      setOpen(false)
+      toggle?.focus()
+    }
+  })
 
   // Close sidebar when clicking links on mobile
   sidebar?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      if (window.innerWidth < 768) {
-        closeSidebar()
-      }
+      if (mobile.matches) setOpen(false)
     })
   })
+
+  mobile.addEventListener("change", syncInert)
+  syncInert()
 </script>

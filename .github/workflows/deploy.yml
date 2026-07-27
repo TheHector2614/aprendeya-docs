@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  OCI_REGION: us-ashburn-1
+  OCI_REGION: sa-bogota-1
   DOCKER_IMAGE_NAME: aprendeya-agent
 
 jobs:
@@ -67,28 +67,71 @@ jobs:
           private-key: ${{ secrets.OCI_PRIVATE_KEY }}
           region: ${{ env.OCI_REGION }}
 
-      - name: Retrieve secret from OCI Vault
-        id: get-secret
+      - name: Deploy Container Instance
+        env:
+          IMAGE_URL: ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          BUCKET: ${{ vars.OCI_OBJECT_STORAGE_BUCKET }}
+          NAMESPACE: ${{ vars.OCI_OBJECT_STORAGE_NS }}
+          COMPARTMENT: ${{ vars.OCI_COMPARTMENT_ID }}
+          SUBNET: ${{ vars.OCI_PRIVATE_SUBNET_ID }}
+          CI_NSG: ${{ vars.OCI_CI_NSG_ID }}
         run: |
-          SECRET_B64=$(oci kms management secret get \
-            --secret-id "${{ vars.OCI_VAULT_SECRET_ID }}" \
-            --query "data.\"secret-content\".content" --raw-output)
-          echo "groq_key=$(echo $SECRET_B64 | base64 -d)" >> $GITHUB_OUTPUT
+          DISPLAY_NAME="aprendeya-agent"
+          AD=$(oci iam availability-domain list --compartment-id "$COMPARTMENT" --query "data[0].name" --raw-output)
+          CI_ID=$(oci compute-container-instance container-instance list \
+            --compartment-id "$COMPARTMENT" \
+            --display-name "${DISPLAY_NAME}-ci" \
+            --query "data[0].id" --raw-output 2>/dev/null || echo "")
 
-      - name: Update Container Instance
+          CONTAINER=$(jq -nc \
+            --arg image "$IMAGE_URL" \
+            --arg key "${{ secrets.GROQ_API_KEY }}" \
+            --arg bucket "$BUCKET" \
+            --arg ns "$NAMESPACE" \
+            --arg dn "$DISPLAY_NAME" \
+            '{displayName:($dn+"-container"),imageUrl:$image,healthChecks:[{action:"NONE",healthCheckType:"HTTP",port:8000,path:"/health",intervalInSeconds:30,failureThreshold:3}],environmentVariables:{GROQ_API_KEY:$key,OCI_OBJECT_STORAGE_BUCKET:$bucket,OCI_OBJECT_STORAGE_NAMESPACE:$ns}}')
+
+          if [ -z "$CI_ID" ]; then
+            echo "Creating Container Instance..."
+            CI_ID=$(oci compute-container-instance container-instance create \
+              --compartment-id "$COMPARTMENT" \
+              --display-name "${DISPLAY_NAME}-ci" \
+              --availability-domain "$AD" \
+              --shape "CI.Standard.E4.Flex" \
+              --shape-config '{"ocpus":2,"memoryInGBs":8}' \
+              --vnic "{\"subnetId\":\"$SUBNET\",\"assignPublicIp\":false,\"nsgIds\":[\"$CI_NSG\"]}" \
+              --container "$CONTAINER" \
+              --is-public-ip-assigned false \
+              --query "data.id" --raw-output)
+            echo "Created CI: $CI_ID"
+          else
+            echo "Updating Container Instance: $CI_ID"
+            oci compute-container-instance container-instance update \
+              --container-instance-id "$CI_ID" \
+              --containers "[$CONTAINER]" \
+              --force > /dev/null
+          fi
+
+          # Save CI_ID for LB registration
+          echo "CI_ID=$CI_ID" >> "$GITHUB_ENV"
+
+      - name: Register container with Load Balancer
         run: |
-          oci compute-container-instance container-instance update \
-            --container-instance-id "${{ vars.OCI_CONTAINER_INSTANCE_ID }}" \
-            --containers "[{
-              \"displayName\":\"aprendeya-agent-container\",
-              \"imageUrl\":\"${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}\",
-              \"environmentVariables\":{
-                \"GROQ_API_KEY\":\"${{ steps.get-secret.outputs.groq_key }}\",
-                \"OCI_OBJECT_STORAGE_BUCKET\":\"${{ vars.OCI_OBJECT_STORAGE_BUCKET }}\",
-                \"OCI_OBJECT_STORAGE_NAMESPACE\":\"${{ vars.OCI_OBJECT_STORAGE_NS }}\"
-              }
-            }]" \
-            --force
+          LB_ID="${{ vars.OCI_LB_ID }}"
+          BS_NAME="${{ vars.OCI_LB_BACKEND_SET }}"
+          sleep 10
+          CI_PRIVATE_IP=$(oci compute-container-instance container-instance get \
+            --container-instance-id "$CI_ID" \
+            --query "data.\"vnics\"[0].\"private-ip\"" --raw-output)
+          echo "Container private IP: $CI_PRIVATE_IP"
+          oci lb backend-set update \
+            --load-balancer-id "$LB_ID" \
+            --backend-set-name "$BS_NAME" \
+            --backends "[{\"ipAddress\":\"${CI_PRIVATE_IP}\",\"port\":8000,\"weight\":1,\"drain\":false}]" \
+            --health-checker '{"protocol":"HTTP","port":8000,"urlPath":"/health","intervalMs":30000,"timeoutInMillis":5000,"retries":3,"returnCode":200}' \
+            --policy "ROUND_ROBIN" \
+            --force > /dev/null
+          echo "Backend registered: $CI_PRIVATE_IP:8000"
 
       - name: Wait for health check via Load Balancer
         run: |
@@ -96,13 +139,16 @@ jobs:
             --load-balancer-id "${{ vars.OCI_LB_ID }}" \
             --query "data.\"ip-addresses\"[0].\"ip-address\"" --raw-output)
           echo "Waiting for $LB_IP:80/health..."
+          sleep 10
           for i in $(seq 1 30); do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://${LB_IP}:80/health" 2>/dev/null || echo "000")
             if [ "$STATUS" = "200" ]; then
-              echo "Deploy successful!"
+              echo ""
+              echo "=== DEPLOY EXITOSO ==="
               echo "URL: http://$LB_IP:80/"
               exit 0
             fi
+            echo "  Intent $i, status $STATUS"
             sleep 5
           done
           echo "Health check failed after 150s"

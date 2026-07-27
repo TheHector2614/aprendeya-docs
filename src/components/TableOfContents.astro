@@ -1,9 +1,12 @@
 ---
+import { slugify } from "../lib/slug"
+
 export interface Props {
   sections: { title: string; content: string }[]
 }
 
 const { sections } = Astro.props
+const entries = sections.map((sec) => ({ title: sec.title, id: slugify(sec.title) }))
 ---
 
 <!-- Mobile Collapsible Table of Contents Accordion -->
@@ -17,23 +20,20 @@ const { sections } = Astro.props
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
     </summary>
     <div class="p-4 pt-0 border-t border-slate-100 bg-slate-50/50 space-y-1 text-xs">
-      {sections.map((sec) => {
-        const id = sec.title.toLowerCase().replace(/\s+/g, '-')
-        return (
-          <a
-            href={`#${id}`}
-            class="block py-2 px-3 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition-colors line-clamp-1"
-          >
-            {sec.title}
-          </a>
-        )
-      })}
+      {entries.map((sec) => (
+        <a
+          href={`#${sec.id}`}
+          class="block py-2 px-3 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition-colors line-clamp-1"
+        >
+          {sec.title}
+        </a>
+      ))}
     </div>
   </details>
 </div>
 
 <!-- Desktop Sticky Table of Contents -->
-<aside class="hidden lg:block w-64 shrink-0">
+<aside aria-label="En esta página" class="hidden lg:block w-64 shrink-0 lg:order-last">
   <div class="sticky top-24 space-y-6">
     <div class="p-4 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-2xs">
       <div class="flex items-center gap-2 mb-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -41,18 +41,15 @@ const { sections } = Astro.props
         En esta página
       </div>
       <nav class="space-y-1 text-xs">
-        {sections.map((sec) => {
-          const id = sec.title.toLowerCase().replace(/\s+/g, '-')
-          return (
-            <a
-              href={`#${id}`}
-              data-toc-link={id}
-              class="block py-1.5 px-2.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 transition-colors line-clamp-1 border-l-2 border-transparent"
-            >
-              {sec.title}
-            </a>
-          )
-        })}
+        {entries.map((sec) => (
+          <a
+            href={`#${sec.id}`}
+            data-toc-link={sec.id}
+            class="block py-1.5 px-2.5 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 transition-colors line-clamp-1 border-l-2 border-transparent"
+          >
+            {sec.title}
+          </a>
+        ))}
       </nav>
     </div>
 
@@ -69,28 +66,42 @@ const { sections } = Astro.props
 </aside>
 
 <script>
-  // ScrollSpy indicator for active TOC item
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id")
-          document.querySelectorAll("[data-toc-link]").forEach((link) => {
-            if (link.getAttribute("data-toc-link") === id) {
-              link.classList.add("text-blue-600", "bg-blue-50", "font-semibold", "border-blue-600")
-              link.classList.remove("text-slate-600", "border-transparent")
-            } else {
-              link.classList.remove("text-blue-600", "bg-blue-50", "font-semibold", "border-blue-600")
-              link.classList.add("text-slate-600", "border-transparent")
-            }
-          })
-        }
-      })
-    },
-    { rootMargin: "-80px 0px -60% 0px" }
-  )
+  // ScrollSpy: resalta la entrada del índice correspondiente a la sección visible.
+  const ACTIVE = ["text-blue-600", "bg-blue-50", "font-semibold", "border-blue-600"]
+  const INACTIVE = ["text-slate-600", "border-transparent"]
 
-  document.querySelectorAll("section[id]").forEach((section) => {
-    observer.observe(section)
-  })
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")
+  const sections = document.querySelectorAll<HTMLElement>("article section[id]")
+
+  if (links.length && sections.length) {
+    // Varias secciones pueden intersecar a la vez; se mantiene el conjunto de
+    // visibles y se resalta siempre la más alta, en lugar de la última que
+    // notificó el observer (que llegaba en orden arbitrario y parpadeaba).
+    const visible = new Set<string>()
+    const order = [...sections].map((s) => s.id)
+
+    function render() {
+      const activeId = order.find((id) => visible.has(id))
+      links.forEach((link) => {
+        const isActive = link.dataset.tocLink === activeId
+        link.classList.add(...(isActive ? ACTIVE : INACTIVE))
+        link.classList.remove(...(isActive ? INACTIVE : ACTIVE))
+        if (isActive) link.setAttribute("aria-current", "true")
+        else link.removeAttribute("aria-current")
+      })
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id)
+          else visible.delete(entry.target.id)
+        }
+        render()
+      },
+      { rootMargin: "-80px 0px -60% 0px" }
+    )
+
+    sections.forEach((section) => observer.observe(section))
+  }
 </script>

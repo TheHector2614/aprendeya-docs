@@ -150,9 +150,11 @@ class Agent:
         if fetched and fetched.get("ids"):
             for i in range(len(fetched["ids"])):
                 cid = fetched["ids"][i]
+                # `metadatas[i]` es None si el chunk se indexó sin metadatos.
+                meta = (fetched["metadatas"] or [])[i] or {}
                 chunk_map[cid] = {
                     "text": fetched["documents"][i],
-                    "seccion": fetched["metadatas"][i].get("seccion", ""),
+                    "seccion": meta.get("seccion", ""),
                 }
 
         context_parts = []

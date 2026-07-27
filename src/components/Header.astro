@@ -1,5 +1,7 @@
 ---
-import SearchModal from "./SearchModal.astro"
+// El modal de búsqueda vive en BaseLayout, no aquí: este <header> es
+// `sticky z-40` y crea un contexto de apilamiento, por lo que un modal
+// anidado quedaba por debajo del widget de chat y de la barra de progreso.
 ---
 
 <header class="glass-header sticky top-0 z-40 transition-all duration-200">
@@ -29,8 +31,8 @@ import SearchModal from "./SearchModal.astro"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-hover:text-blue-600 transition-colors"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <span class="hidden sm:inline">Buscar en la doc...</span>
-          <kbd class="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white text-slate-400 rounded border border-slate-200 shadow-2xs">
-            ⌘K
+          <kbd data-shortcut-hint class="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white text-slate-400 rounded border border-slate-200 shadow-2xs">
+            Ctrl K
           </kbd>
         </button>
 
@@ -54,8 +56,11 @@ import SearchModal from "./SearchModal.astro"
         <!-- Mobile menu button -->
         <button
           id="menu-toggle"
+          type="button"
           class="md:hidden p-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-xl transition-colors"
           aria-label="Abrir menú"
+          aria-controls="site-sidebar"
+          aria-expanded="false"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
@@ -63,9 +68,6 @@ import SearchModal from "./SearchModal.astro"
 
     </div>
   </div>
-
-  <!-- Native Search Modal Component -->
-  <SearchModal />
 </header>
 
 <script>
@@ -73,4 +75,13 @@ import SearchModal from "./SearchModal.astro"
   document.getElementById("search-trigger")?.addEventListener("click", () => {
     window.dispatchEvent(new CustomEvent("open-search-modal"))
   })
+
+  // El atajo real es Ctrl+K en Windows/Linux y ⌘K en macOS; el texto se
+  // renderiza como "Ctrl K" y solo se sustituye en Apple para no mentir al
+  // usuario mientras el HTML es estático.
+  if (/Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent)) {
+    document.querySelectorAll("[data-shortcut-hint]").forEach((el) => {
+      el.textContent = "⌘K"
+    })
+  }
 </script>

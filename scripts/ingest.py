@@ -148,7 +148,7 @@ def main():
 
     texts = [c.text for c in all_chunks]
     print("Generando embeddings...")
-    embeddings = embedder.embed(texts)
+    embeddings = embedder.embed(texts, show_progress=True)
 
     print("Indexando en ChromaDB...")
     indexer.index(all_chunks, embeddings)

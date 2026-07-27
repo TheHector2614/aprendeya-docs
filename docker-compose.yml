@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   api:
     build: .
@@ -8,6 +6,10 @@ services:
       - "8000:8000"
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY}
-    volumes:
-      - ./index:/app/index
+      # Vacío o "*" deja CORS abierto; en producción se lista el dominio del sitio.
+      - CORS_ALLOW_ORIGINS=${CORS_ALLOW_ORIGINS:-*}
+    # Sin volumen sobre /app/index: el índice de ChromaDB se construye dentro
+    # de la imagen (`RUN python scripts/ingest.py`) y un bind mount del
+    # directorio local — vacío, porque está en .gitignore — lo tapaba, así que
+    # el agente arrancaba sin nada que buscar.
     restart: unless-stopped

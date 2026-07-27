@@ -1,0 +1,12 @@
+{
+  "COMPARTMENT_ID": "ocid1.compartment.oc1..aaaaaaaaq3r7rqh5t7gcy624q3nqb5h7ibjvyksayyzadx7zeq6d3t23vvua",
+  "VCN_ID": "ocid1.vcn.oc1.sa-bogota-1.amaaaaaaz23txriavflzyjd7ctqikcv4sz33rv7i3ucwid2inpvghwgetssq",
+  "PUBLIC_SUBNET_ID": "ocid1.subnet.oc1.sa-bogota-1.aaaaaaaa2wfdzk3wdlhhwyf2hicqaqsvobexiem66ir6vlshhtrqyglaokaa",
+  "PRIVATE_SUBNET_ID": "ocid1.subnet.oc1.sa-bogota-1.aaaaaaaana5d5b2ypmpvpwv2jcrd2d3y4t7lkyl72k2ninwwpbixswgyetza",
+  "LB_NSG_ID": "ocid1.networksecuritygroup.oc1.sa-bogota-1.aaaaaaaam42lo4djwam7y4yb7rm3dll6ouyiczmfohkqsk7zck3fr4fuaewa",
+  "CI_NSG_ID": "ocid1.networksecuritygroup.oc1.sa-bogota-1.aaaaaaaavp3bhbznoltg2pcpb7e7gkbown2ew5g3sinmdsmkeeoia76iwfaa",
+  "LB_ID": "ocid1.loadbalancer.oc1.sa-bogota-1.aaaaaaaan4dk664ffyfv75nl7pn4p6mzr2iuhorzaxprzuoymqyorhotqeiq",
+  "LB_BACKEND_SET": "aprendeya-agent-bs",
+  "BUCKET_NAME": "aprendeya-agent-docs",
+  "OBJECT_STORAGE_NS": "axpm5o3jy59h"
+}
