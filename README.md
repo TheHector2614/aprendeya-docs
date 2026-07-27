@@ -49,10 +49,41 @@ El proyecto incluye un sistema completo de organización documental en `docs-man
 | `matriz-acceso.yaml` | Fuentes, métodos de conexión y permisos del agente |
 | `ingesta.md` | Plan de ingesta inicial e integración continua |
 
+### Pipeline de Procesamiento (Etapa 2)
+
+El directorio `scripts/` contiene el pipeline de procesamiento e indexación semántica:
+
+```
+scripts/
+├── pipeline/
+│   ├── extractor.py    # Extrae texto de HTML, DOCX, XLSX, MD, TXT
+│   ├── chunker.py      # Divide documentos en chunks con overlap
+│   ├── embedder.py     # Genera embeddings multilingües (sentence-transformers)
+│   └── indexer.py      # Indexa en ChromaDB (búsqueda por similitud coseno)
+├── ingest.py           # Ingesta completa desde inventario.yaml
+├── search.py           # Búsqueda semántica por consola
+├── generate_samples.py # Genera documentos de muestra
+└── requirements.txt
+```
+
+**Uso:**
+```bash
+cd scripts
+pip install -r requirements.txt
+python generate_samples.py   # genera docs de muestra en raw/
+python ingest.py             # extrae → chunk → embed → indexar
+python search.py "mi consulta" --top-k 3
+```
+
 ### Estructura del pipeline
 
 ```
-Etapa 1  →  Recolección y Organización  (docs-management/)    ← HECHO
-Etapa 2  →  Procesamiento e Indexación
-Etapa 3  →  Búsqueda y Generación de Respuestas
+Etapa 1  →  Recolección y Organización  (docs-management/)    ✓
+Etapa 2  →  Procesamiento e Indexación  (scripts/ + index/)   ✓
+Etapa 3  →  Búsqueda y Generación de Respuestas                ← SIGUIENTE
 ```
+
+## Requisitos
+
+- **Node.js 18+** — para el sitio web
+- **Python 3.10+** — para el pipeline de procesamiento
