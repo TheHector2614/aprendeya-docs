@@ -14,6 +14,10 @@ on:
 env:
   OCI_REGION: sa-bogota-1
   DOCKER_IMAGE_NAME: aprendeya-agent
+  OCI_CLI_USER: ${{ secrets.OCI_USER_OCID }}
+  OCI_CLI_TENANCY: ${{ secrets.OCI_TENANCY_OCID }}
+  OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+  OCI_CLI_KEY_FILE: ${{ github.workspace }}/.oci/oci_api_key.pem
 
 jobs:
   build-and-push:
@@ -23,14 +27,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up OCI CLI
-        uses: oracle-actions/setup-cli@v1
-        with:
-          tenancy: ${{ secrets.OCI_TENANCY_OCID }}
-          user: ${{ secrets.OCI_USER_OCID }}
-          fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-          private-key: ${{ secrets.OCI_PRIVATE_KEY }}
-          region: ${{ env.OCI_REGION }}
+      - name: Install OCI CLI
+        run: |
+          pip install oci-cli --break-system-packages 2>/dev/null || pip install oci-cli
+
+      - name: Write OCI key file
+        run: |
+          mkdir -p ${{ github.workspace }}/.oci
+          echo "${{ secrets.OCI_PRIVATE_KEY_B64 }}" | base64 -d > ${{ github.workspace }}/.oci/oci_api_key.pem
+          chmod 600 ${{ github.workspace }}/.oci/oci_api_key.pem
 
       - name: Log in to OCIR
         run: |
@@ -58,14 +63,18 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Set up OCI CLI
-        uses: oracle-actions/setup-cli@v1
-        with:
-          tenancy: ${{ secrets.OCI_TENANCY_OCID }}
-          user: ${{ secrets.OCI_USER_OCID }}
-          fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-          private-key: ${{ secrets.OCI_PRIVATE_KEY }}
-          region: ${{ env.OCI_REGION }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install OCI CLI
+        run: |
+          pip install oci-cli --break-system-packages 2>/dev/null || pip install oci-cli
+
+      - name: Write OCI key file
+        run: |
+          mkdir -p ${{ github.workspace }}/.oci
+          echo "${{ secrets.OCI_PRIVATE_KEY_B64 }}" | base64 -d > ${{ github.workspace }}/.oci/oci_api_key.pem
+          chmod 600 ${{ github.workspace }}/.oci/oci_api_key.pem
 
       - name: Deploy Container Instance
         env:
