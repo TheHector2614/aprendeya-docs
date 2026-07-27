@@ -13,10 +13,7 @@ on:
 
 env:
   OCI_REGION: us-ashburn-1
-  OCI_COMPARTMENT_OCID: ${{ vars.OCI_COMPARTMENT_OCID }}
-  OCI_OBJECT_STORAGE_NS: ${{ vars.OCI_OBJECT_STORAGE_NS }}
   DOCKER_IMAGE_NAME: aprendeya-agent
-  CONTAINER_INSTANCE_ID: ${{ vars.OCI_CONTAINER_INSTANCE_ID }}
 
 jobs:
   build-and-push:
@@ -45,19 +42,19 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            --cache-from ${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
-            -t ${{ env.DOCKER_IMAGE_NAME }}:latest \
-            -t ${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }} \
-            -t ${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
+            --cache-from ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
+            -t ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
             .
 
       - name: Push to OCIR
         run: |
-          docker push ${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
-          docker push ${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+          docker push ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          docker push ${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:latest
 
   deploy:
-    name: Deploy to OCI Container Instance
+    name: Deploy to OCI
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
@@ -81,28 +78,29 @@ jobs:
       - name: Update Container Instance
         run: |
           oci compute-container-instance container-instance update \
-            --container-instance-id "${{ env.CONTAINER_INSTANCE_ID }}" \
+            --container-instance-id "${{ vars.OCI_CONTAINER_INSTANCE_ID }}" \
             --containers "[{
               \"displayName\":\"aprendeya-agent-container\",
-              \"imageUrl\":\"${{ env.OCI_REGION }}.ocir.io/${{ env.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}\",
+              \"imageUrl\":\"${{ env.OCI_REGION }}.ocir.io/${{ vars.OCI_OBJECT_STORAGE_NS }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}\",
               \"environmentVariables\":{
-                \"GROQ_API_KEY\":\"${{ steps.get-secret.outputs.groq_key }}\"
+                \"GROQ_API_KEY\":\"${{ steps.get-secret.outputs.groq_key }}\",
+                \"OCI_OBJECT_STORAGE_BUCKET\":\"${{ vars.OCI_OBJECT_STORAGE_BUCKET }}\",
+                \"OCI_OBJECT_STORAGE_NAMESPACE\":\"${{ vars.OCI_OBJECT_STORAGE_NS }}\"
               }
             }]" \
             --force
 
-      - name: Wait for health check
+      - name: Wait for health check via Load Balancer
         run: |
-          PUBLIC_IP=$(oci compute-container-instance container-instance get \
-            --container-instance-id "${{ env.CONTAINER_INSTANCE_ID }}" \
-            --query "data.\"vnics\"[0].\"public-ip\"" --raw-output)
-          echo "Waiting for $PUBLIC_IP:8000/health..."
+          LB_IP=$(oci lb load-balancer get \
+            --load-balancer-id "${{ vars.OCI_LB_ID }}" \
+            --query "data.\"ip-addresses\"[0].\"ip-address\"" --raw-output)
+          echo "Waiting for $LB_IP:80/health..."
           for i in $(seq 1 30); do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://$PUBLIC_IP:8000/health 2>/dev/null || echo "000")
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://${LB_IP}:80/health" 2>/dev/null || echo "000")
             if [ "$STATUS" = "200" ]; then
               echo "Deploy successful!"
-              echo "API: http://$PUBLIC_IP:8000/"
-              echo "Health: http://$PUBLIC_IP:8000/health"
+              echo "URL: http://$LB_IP:80/"
               exit 0
             fi
             sleep 5

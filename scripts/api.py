@@ -7,7 +7,7 @@ Endpoints:
 
 Uso local:   python api.py
              http://localhost:8000
-Despliegue:  Docker + OCI Container Instances (GROQ_API_KEY via OCI Vault)
+Despliegue:  Docker + OCI (Container Instance privada + Load Balancer)
 """
 
 import sys
@@ -16,9 +16,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pipeline.agent import Agent
@@ -93,4 +92,10 @@ def chat_ui():
 # ── Entry point ──────────────────────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8000,
+        proxy_headers=True,
+        forwarded_allow_ips="*",
+    )
